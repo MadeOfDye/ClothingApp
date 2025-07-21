@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClothingStore.Application\ClothingStore.Application.csproj" />
+    <ProjectReference Include="..\ClothingStore.Domain\ClothingStore.Domain.csproj" />
+    <ProjectReference Include="..\ClothingStore.Persistence\ClothingStore.Persistence.csproj" />
+    <ProjectReference Include="..\ClothingStore.Shared\ClothingStore.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Authentication\" />
+    <Folder Include="Email\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
