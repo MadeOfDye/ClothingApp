@@ -10,10 +10,9 @@ namespace ClothingStore.Domain.Entities
     {
         public Guid PhotoId { get; private set; }
         public Guid VariantId { get; private set; } 
+        public Variant Variant { get; private set; }
         public string Url { get; private set; }
         public DateTimeOffset UploadedAt { get; private set; }
-
-        public Variant Variant { get; private set; }
 
         protected Photo() { }
 
@@ -25,6 +24,13 @@ namespace ClothingStore.Domain.Entities
                              ? url
                              : throw new ArgumentException("URL required");
             UploadedAt = DateTime.UtcNow;
+        }
+
+        public void UpdateUrl(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+                throw new ArgumentException("URL cannot be null or empty", nameof(url));
+            Url = url;
         }
     }
 
