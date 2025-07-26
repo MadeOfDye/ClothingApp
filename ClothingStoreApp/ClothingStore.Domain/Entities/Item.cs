@@ -1,10 +1,9 @@
-﻿using ClothingStore.Domain.Enumerators;
-using ClothingStore.Domain.Interfaces;
-using Microsoft.VisualBasic;
-using System.Text.RegularExpressions;
-
-namespace ClothingStore.Domain.Entities
+﻿namespace ClothingStore.Domain.Entities
 {
+    using ClothingStore.Domain.Enumerators;
+    using ClothingStore.Domain.Interfaces;
+    using System.Text.RegularExpressions;
+
     public class Item : IAggregateRoot
     {
         public Guid ItemId { get; private set; }
@@ -23,7 +22,7 @@ namespace ClothingStore.Domain.Entities
         public string Collection { get; private set; }
         public string? CareGuide { get; private set; }
         public string? MaterialDistribution { get; private set; }
-        public int TotalStock => _variants.Sum(v => v.totalQuantity);
+        public int TotalStock => _variants.Sum(v => v.TotalQuantity);
 
         protected Item() { }
 

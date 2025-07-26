@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClothingStore.Domain.Entities
+﻿namespace ClothingStore.Domain.Entities
 {
     // TODO: Implement The Logged-In User class according to the domain requirements after current vertical slice.
     public class User

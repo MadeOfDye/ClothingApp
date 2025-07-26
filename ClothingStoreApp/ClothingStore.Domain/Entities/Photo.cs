@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClothingStore.Domain.Entities
+﻿namespace ClothingStore.Domain.Entities
 {
     public class Photo
     {
@@ -12,18 +6,19 @@ namespace ClothingStore.Domain.Entities
         public Guid VariantId { get; private set; } 
         public Variant Variant { get; private set; }
         public string Url { get; private set; }
+        public string? Description { get; private set; }
         public DateTimeOffset UploadedAt { get; private set; }
 
         protected Photo() { }
 
-        public Photo(Guid variantId, string url)
+        public Photo(string url, string? description)
         {
             PhotoId = Guid.NewGuid();
-            VariantId = variantId;
             Url = !string.IsNullOrWhiteSpace(url)
                              ? url
                              : throw new ArgumentException("URL required");
             UploadedAt = DateTime.UtcNow;
+            Description = description;
         }
 
         public void UpdateUrl(string url)

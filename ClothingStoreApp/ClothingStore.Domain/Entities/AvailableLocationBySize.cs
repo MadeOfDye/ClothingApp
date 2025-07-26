@@ -1,7 +1,7 @@
-﻿using ClothingStore.Domain.ValueObjects;
-
-namespace ClothingStore.Domain.Entities
+﻿namespace ClothingStore.Domain.Entities
 {
+    using ClothingStore.Domain.ValueObjects;
+
     public class AvailableLocationBySize
     {
         public Guid LocationId { get; set; }
@@ -17,10 +17,8 @@ namespace ClothingStore.Domain.Entities
 
         protected AvailableLocationBySize() { }
 
-        public AvailableLocationBySize(Guid locationId, Guid variantId, Size size)
+        public AvailableLocationBySize(Size size)
         {
-            LocationId = locationId;
-            VariantId = variantId;
             Size = size;
         }
 
@@ -34,6 +32,17 @@ namespace ClothingStore.Domain.Entities
                 throw new InvalidOperationException("Stock already exists in the available locations for this size");
             _availableLocationsOfGivenSize.Add(stock);
         }
+
+        public void AddStockRange(IEnumerable<StockByLocation> stocks)
+        {
+            if (stocks == null || !stocks.Any())
+                throw new ArgumentNullException(nameof(stocks), "Stocks cannot be null or empty");
+            foreach (var stock in stocks)
+            {
+                AddStock(stock);
+            }
+        }
+
         public void RemoveStock(Guid stockId)
         {
             if (stockId == Guid.Empty)

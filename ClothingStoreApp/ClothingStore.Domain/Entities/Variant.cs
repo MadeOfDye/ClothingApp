@@ -1,7 +1,7 @@
-﻿using ClothingStore.Domain.ValueObjects;
-
-namespace ClothingStore.Domain.Entities
+﻿namespace ClothingStore.Domain.Entities
 {
+    using ClothingStore.Domain.ValueObjects;
+
     public class Variant
     {
         public Guid VariantId { get; private set; }
@@ -16,10 +16,9 @@ namespace ClothingStore.Domain.Entities
 
         protected Variant() { }
 
-        public Variant(Guid itemId, Color color)
+        public Variant(Color color)
         {
             VariantId = Guid.NewGuid();
-            ItemId = itemId;
             Color = color ?? throw new ArgumentNullException(nameof(color));
         }
 
