@@ -20,7 +20,7 @@
         [InlineData("", "asset/photo2")]
         public void Constructor_WithNullOrEmptyUrl_ShouldThrowArgumentException(string? url, string description)
         {
-            Assert.Throws<ArgumentException>(() => new Photo(url, description));
+            Assert.Throws<ArgumentNullException>(() => new Photo(url, description));
         }
 
 

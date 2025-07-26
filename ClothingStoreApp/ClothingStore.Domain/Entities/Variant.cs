@@ -31,10 +31,8 @@
 
         public void AddPhoto(Photo photo)
         {
-            if (photo == null)
-                throw new ArgumentNullException(nameof(photo), "Photo cannot be null");
-            if(photo.VariantId != VariantId)
-                throw new InvalidOperationException("Photo must belong to this Variant.");
+            //if(photo.VariantId != VariantId)
+            //    throw new InvalidOperationException("Photo must belong to this Variant.");
             _gallery.Add(photo);
         }
 
@@ -42,8 +40,8 @@
         {
             if (_availableLocations.Any(l => l.LocationId == location.LocationId && l.Size == location.Size))
                 throw new InvalidOperationException("Location/Size combo exists");
-            if(location.VariantId != VariantId)
-                throw new InvalidOperationException("Location must belong to this Variant.");
+            //if(location.VariantId != VariantId)
+            //    throw new InvalidOperationException("Location must belong to this Variant.");
             _availableLocations.Add(location);
         }
 

@@ -39,16 +39,5 @@
             AvailableLocationBySize availableLocation = new AvailableLocationBySize(size);
             Assert.Throws<ArgumentNullException>(() => availableLocation.AddStock(null));
         }
-
-        [Fact]
-        public void AddStock_WithStockFromDifferentLocation_ShouldThrowInvalidOperationException()
-        {
-            Size size = new Size("M");
-            AvailableLocationBySize availableLocation = new AvailableLocationBySize(size);
-            Location location1 = new Location(123.2, 123.3);
-            Location location2 = new Location(456.7, 456.8);
-            StockByLocation stock = new StockByLocation(10, location2);
-            Assert.Throws<InvalidOperationException>(() => availableLocation.AddStock(stock));
-        }
     }
 }

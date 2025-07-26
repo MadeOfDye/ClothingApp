@@ -16,7 +16,7 @@
             PhotoId = Guid.NewGuid();
             Url = !string.IsNullOrWhiteSpace(url)
                              ? url
-                             : throw new ArgumentException("URL required");
+                             : throw new ArgumentNullException("URL required");
             UploadedAt = DateTime.UtcNow;
             Description = description;
         }

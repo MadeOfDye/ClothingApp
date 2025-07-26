@@ -25,6 +25,10 @@
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be greater than zero", nameof(quantity));
             var existingItem = _items.FirstOrDefault(i => i.Item.ItemId == item.ItemId);
+            if (existingItem == null)
+            {
+                existingItem = new CartItem(item, 0);
+            }
             if (existingItem.Item != null)
             {
                 existingItem.IncreaseQuantity(quantity);
@@ -38,6 +42,8 @@
             if (item == null)
                 throw new ArgumentNullException(nameof(item), "Item cannot be null");
             var existingItem = _items.FirstOrDefault(i => i.Item.ItemId == item.ItemId);
+            if (existingItem == null)
+                throw new InvalidOperationException("Item not found in Cart");
             if (existingItem.Item == null)
                 throw new InvalidOperationException("Item not found in cart");
             if (existingItem.Quantity > 1)

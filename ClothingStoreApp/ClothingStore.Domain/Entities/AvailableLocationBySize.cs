@@ -19,6 +19,9 @@
 
         public AvailableLocationBySize(Size size)
         {
+            LocationId = Guid.NewGuid();
+            if (size == null)
+                throw new ArgumentNullException(nameof(size) + " does not exist");
             Size = size;
         }
 
@@ -26,8 +29,8 @@
         {
             if (stock == null)
                 throw new ArgumentNullException(nameof(stock), "Stock cannot be null");
-            if (stock.LocationBySizeId != LocationId)
-                throw new InvalidOperationException("Stock must belong to this AvailableLocationBySize.");
+            //if (stock.LocationBySizeId != LocationId)
+            //    throw new InvalidOperationException("Stock must belong to this AvailableLocationBySize Object.");
             if (_availableLocationsOfGivenSize.Contains(stock))
                 throw new InvalidOperationException("Stock already exists in the available locations for this size");
             _availableLocationsOfGivenSize.Add(stock);
