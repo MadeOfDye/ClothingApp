@@ -1,7 +1,7 @@
-﻿using ClothingStore.Domain.ValueObjects;
-
-namespace ClothingStore.Domain.Entities
+﻿namespace ClothingStore.Domain.Entities
 {
+    using ClothingStore.Domain.ValueObjects;
+
     public class Variant
     {
         public Guid VariantId { get; private set; }
@@ -16,10 +16,9 @@ namespace ClothingStore.Domain.Entities
 
         protected Variant() { }
 
-        public Variant(Guid itemId, Color color)
+        public Variant(Color color)
         {
             VariantId = Guid.NewGuid();
-            ItemId = itemId;
             Color = color ?? throw new ArgumentNullException(nameof(color));
         }
 
@@ -32,10 +31,8 @@ namespace ClothingStore.Domain.Entities
 
         public void AddPhoto(Photo photo)
         {
-            if (photo == null)
-                throw new ArgumentNullException(nameof(photo), "Photo cannot be null");
-            if(photo.VariantId != VariantId)
-                throw new InvalidOperationException("Photo must belong to this Variant.");
+            //if(photo.VariantId != VariantId)
+            //    throw new InvalidOperationException("Photo must belong to this Variant.");
             _gallery.Add(photo);
         }
 
@@ -43,8 +40,8 @@ namespace ClothingStore.Domain.Entities
         {
             if (_availableLocations.Any(l => l.LocationId == location.LocationId && l.Size == location.Size))
                 throw new InvalidOperationException("Location/Size combo exists");
-            if(location.VariantId != VariantId)
-                throw new InvalidOperationException("Location must belong to this Variant.");
+            //if(location.VariantId != VariantId)
+            //    throw new InvalidOperationException("Location must belong to this Variant.");
             _availableLocations.Add(location);
         }
 

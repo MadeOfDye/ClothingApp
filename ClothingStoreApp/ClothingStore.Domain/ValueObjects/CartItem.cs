@@ -36,5 +36,21 @@ namespace ClothingStore.Domain.ValueObjects
             return Quantity;
         }
 
+        public override bool Equals(object? obj)
+        {
+            if (obj is not CartItem other)
+                return false;
+            return Item.Equals(other.Item) && Quantity == other.Quantity;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Item, Quantity);
+        }
+
+        public override string ToString()
+        {
+            return $"{Item.Name} (Quantity: {Quantity})";
+        }
     }
 }

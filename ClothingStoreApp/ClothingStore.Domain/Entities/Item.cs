@@ -1,10 +1,9 @@
-﻿using ClothingStore.Domain.Enumerators;
-using ClothingStore.Domain.Interfaces;
-using Microsoft.VisualBasic;
-using System.Text.RegularExpressions;
-
-namespace ClothingStore.Domain.Entities
+﻿namespace ClothingStore.Domain.Entities
 {
+    using ClothingStore.Domain.Enumerators;
+    using ClothingStore.Domain.Interfaces;
+    using System.Text.RegularExpressions;
+
     public class Item : IAggregateRoot
     {
         public Guid ItemId { get; private set; }
@@ -23,7 +22,7 @@ namespace ClothingStore.Domain.Entities
         public string Collection { get; private set; }
         public string? CareGuide { get; private set; }
         public string? MaterialDistribution { get; private set; }
-        public int TotalStock => _variants.Sum(v => v.totalQuantity);
+        public int TotalStock => _variants.Sum(v => v.TotalQuantity);
 
         protected Item() { }
 
@@ -37,7 +36,7 @@ namespace ClothingStore.Domain.Entities
                 Collection = collection;
             else
                 Collection = System.String.Empty;
-            Price = (price < 0) ? price : throw new ArgumentException("Price must be a positive integer value");
+            Price = (price >= 0) ? price : throw new ArgumentException("Price must be a positive integer value");
             Brand = !string.IsNullOrWhiteSpace(brand) ? brand : throw new ArgumentException("Must specify the brand of clothing");
             MaterialDistribution = System.String.Empty;
             if (string.IsNullOrWhiteSpace(careGuide))
@@ -66,7 +65,7 @@ namespace ClothingStore.Domain.Entities
         {
             if (string.IsNullOrWhiteSpace(materialDistribution))
                 throw new ArgumentException("Material distribution cannot be null or empty", nameof(materialDistribution));
-            Regex materialRegex = new Regex(@"^([a-zA-Z0-9\s,]+%)+$");
+            Regex materialRegex = new Regex(@"^[A-Za-z0-9\s]+:\s?(100|[1-9][0-9])%(,\s?[A-Za-z0-9\s]+:\s?(100|[1-9][0-9])%)*$");
             if (!materialRegex.IsMatch(materialDistribution))
             {
                 throw new ArgumentException("Material distribution must be a comma-separated list of materials with percentages (e.g., 'Cotton 50%, Polyester 50%')", nameof(materialDistribution));
@@ -78,8 +77,8 @@ namespace ClothingStore.Domain.Entities
         {
             if (variant == null)
                 throw new ArgumentNullException(nameof(variant), "Variant cannot be null");
-            if (variant.ItemId != ItemId)
-                throw new InvalidOperationException("Variant must belong to this Item.");
+            //if (variant.ItemId != ItemId)
+            //    throw new InvalidOperationException("Variant must belong to this Item.");
             if (_variants.Any(v => v.VariantId == variant.VariantId))
                 throw new InvalidOperationException("Variant already exists in the item");
             _variants.Add(variant);
@@ -98,8 +97,8 @@ namespace ClothingStore.Domain.Entities
         {
             if (review == null)
                 throw new ArgumentNullException(nameof(review), "Review Cannot Be NULL");
-            if(review.ItemId != ItemId)
-                throw new InvalidOperationException("Review must belong to this Item.");
+            //if(review.ItemId != ItemId)
+            //    throw new InvalidOperationException("Review must belong to this Item.");
             if (_reviews.Any(r => r.Content.Equals(review.Content)))
                 throw new InvalidOperationException("A Review already exists with the same content");
             _reviews.Add(review);
