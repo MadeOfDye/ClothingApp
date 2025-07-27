@@ -30,6 +30,6 @@
             HashCode.Combine(Latitude, Longitude, Address);
 
         public override string ToString() =>
-            $"{Latitude}, {Longitude}" + (Address is not null ? $" ({Address})" : "");
+            $"{Latitude}, {Longitude}" + (Address is not null ? $", ({Address})" : "");
     }
 }
