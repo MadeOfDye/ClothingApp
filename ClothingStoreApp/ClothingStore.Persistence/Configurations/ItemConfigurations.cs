@@ -25,6 +25,9 @@ namespace ClothingStore.Persistence.Configurations
             builder.Property(item => item.Collection)
                 .HasDefaultValue(string.Empty);
 
+            builder.Property(item => item.Discount)
+                .HasColumnType("decimal(5,2)");
+
             builder.Property(item => item.MaterialDistribution)
                 .IsRequired();
 

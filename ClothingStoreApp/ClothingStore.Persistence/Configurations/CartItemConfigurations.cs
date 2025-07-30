@@ -20,6 +20,4 @@ namespace ClothingStore.Persistence.Configurations
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
-    {
-    }
 }

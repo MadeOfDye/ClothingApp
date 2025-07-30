@@ -9,20 +9,14 @@ namespace ClothingStore.Persistence.Configurations
         {
             builder.ToTable("AvailableLocations");
             builder.HasKey(location => location.LocationId);
-            builder.Property(location => location.Size)
-                .IsRequired()
-                .HasMaxLength(12);
-            builder.Property(location => location.TotalStockOfSize)
-                .IsRequired()
-                .HasColumnType("int");
-
-            builder.OwnsOne(location => location.Size, sizeBuilder =>
-            {
-                sizeBuilder.Property(s => s.Letter)
-                    .HasColumnName("SizeLetter")
-                    .IsRequired()
-                    .HasMaxLength(12);
-            });
+            //builder.Property(location => location.TotalStockOfSize)
+            //    .IsRequired()
+            //    .HasColumnType("int");
+            builder.HasOne(location => location.Size)
+            .WithMany()
+            .HasForeignKey("SizeId")
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(location => location.Variant)
                 .WithMany(variant => variant.AvailableLocations)
                 .HasForeignKey(location => location.VariantId)

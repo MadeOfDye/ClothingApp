@@ -2,6 +2,7 @@
 {
     using ClothingStore.Domain.Interfaces;
     using System.Text.RegularExpressions;
+    using ClothingStore.Domain.Enumerators;
 
     public class Item : IAggregateRoot
     {

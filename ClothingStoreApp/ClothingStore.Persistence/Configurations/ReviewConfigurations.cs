@@ -17,8 +17,12 @@ namespace ClothingStore.Persistence.Configurations
                 .HasForeignKey(review => review.ItemId)
                 .HasConstraintName("FK_Items_Reviews")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(r => r.ParentReview)
+           .WithMany(r => r.Replies)
+           .HasForeignKey(r => r.ParentReviewId)
+           .OnDelete(DeleteBehavior.Cascade);
         }
     }   
-    {
-    }
+    
 }
