@@ -27,7 +27,7 @@ namespace ClothingStore.Persistence.Configurations
                     .HasColumnName("Address")
                     .HasMaxLength(255);
 
-                locationBuilder.ToTable("StocksByLocation");
+                locationBuilder.ToTable("StocksByLocations");
             });
 
             builder.HasOne(stock => stock.LocationBySize)

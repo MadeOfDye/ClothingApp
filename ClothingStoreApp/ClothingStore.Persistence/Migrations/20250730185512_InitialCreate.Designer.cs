@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothingStore.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250730184815_InitialCreate")]
+    [Migration("20250730185512_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -526,7 +526,7 @@ namespace ClothingStore.Persistence.Migrations
 
                             b1.HasKey("StockByLocationStockId");
 
-                            b1.ToTable("StocksByLocation", (string)null);
+                            b1.ToTable("StocksByLocations", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("StockByLocationStockId");

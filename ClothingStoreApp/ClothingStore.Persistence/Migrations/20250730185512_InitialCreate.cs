@@ -242,7 +242,10 @@ namespace ClothingStore.Persistence.Migrations
                 {
                     StockId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LocationBySizeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    Stock = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Latitude = table.Column<double>(type: "float", nullable: true),
+                    Longitude = table.Column<double>(type: "float", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -252,26 +255,6 @@ namespace ClothingStore.Persistence.Migrations
                         column: x => x.LocationBySizeId,
                         principalTable: "AvailableLocations",
                         principalColumn: "LocationId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StocksByLocation",
-                columns: table => new
-                {
-                    StockByLocationStockId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StocksByLocation", x => x.StockByLocationStockId);
-                    table.ForeignKey(
-                        name: "FK_StocksByLocation_StocksByLocations_StockByLocationStockId",
-                        column: x => x.StockByLocationStockId,
-                        principalTable: "StocksByLocations",
-                        principalColumn: "StockId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -345,7 +328,7 @@ namespace ClothingStore.Persistence.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "StocksByLocation");
+                name: "StocksByLocations");
 
             migrationBuilder.DropTable(
                 name: "Tags");
@@ -354,13 +337,10 @@ namespace ClothingStore.Persistence.Migrations
                 name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
-                name: "StocksByLocations");
+                name: "AvailableLocations");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "AvailableLocations");
 
             migrationBuilder.DropTable(
                 name: "Sizes");

@@ -523,7 +523,7 @@ namespace ClothingStore.Persistence.Migrations
 
                             b1.HasKey("StockByLocationStockId");
 
-                            b1.ToTable("StocksByLocation", (string)null);
+                            b1.ToTable("StocksByLocations", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("StockByLocationStockId");
