@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothingStore.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250730173734_InitialCreate")]
+    [Migration("20250730184815_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -92,7 +92,7 @@ namespace ClothingStore.Persistence.Migrations
                         .HasDefaultValue("");
 
                     b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<bool>("Hot")
                         .HasColumnType("bit");
@@ -153,7 +153,8 @@ namespace ClothingStore.Persistence.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
@@ -173,7 +174,7 @@ namespace ClothingStore.Persistence.Migrations
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ReviewId1")
+                    b.Property<Guid?>("ParentReviewId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("TimesEdited")
@@ -184,7 +185,7 @@ namespace ClothingStore.Persistence.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.HasIndex("ReviewId1");
+                    b.HasIndex("ParentReviewId");
 
                     b.ToTable("Reviews", (string)null);
                 });
@@ -281,204 +282,6 @@ namespace ClothingStore.Persistence.Migrations
                     b.HasIndex("ItemId");
 
                     b.ToTable("Tags", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            TagId = new Guid("f6aaeda0-fef3-4a4e-8f55-9f5191261b7a"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Sweater",
-                            Ordinal = 0
-                        },
-                        new
-                        {
-                            TagId = new Guid("da98d9fe-62e2-43db-98d7-60e6529bb59c"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Shirt",
-                            Ordinal = 1
-                        },
-                        new
-                        {
-                            TagId = new Guid("0eaa402d-8656-4aa0-9faa-b390b9cd6ecb"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Dress",
-                            Ordinal = 2
-                        },
-                        new
-                        {
-                            TagId = new Guid("2d800a18-f6c7-4171-b236-95cb1b82a66b"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Skirt",
-                            Ordinal = 3
-                        },
-                        new
-                        {
-                            TagId = new Guid("456d936e-5c44-4589-929d-5836ecb64abe"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Poncho",
-                            Ordinal = 4
-                        },
-                        new
-                        {
-                            TagId = new Guid("0a415d2d-24fa-43af-a491-dc207c5c13bd"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Dress_Shoes",
-                            Ordinal = 5
-                        },
-                        new
-                        {
-                            TagId = new Guid("58f3f330-f4b7-498f-bdec-9ba1bcca0673"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Sneakers",
-                            Ordinal = 6
-                        },
-                        new
-                        {
-                            TagId = new Guid("110594f3-7f59-406d-91b0-6143f3cc258b"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Tennis_shoes",
-                            Ordinal = 7
-                        },
-                        new
-                        {
-                            TagId = new Guid("e1a86080-ed96-4d55-b354-b2022f2713af"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "V_necks",
-                            Ordinal = 8
-                        },
-                        new
-                        {
-                            TagId = new Guid("ae47258a-791d-4cd0-a71a-ec932d1d82e9"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Dress_Shirt",
-                            Ordinal = 9
-                        },
-                        new
-                        {
-                            TagId = new Guid("f7b4865c-ffa2-426a-a5df-1b0392aaefba"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Blouse",
-                            Ordinal = 10
-                        },
-                        new
-                        {
-                            TagId = new Guid("46f7c272-c285-4b93-a058-b6d86de1246d"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Caps",
-                            Ordinal = 11
-                        },
-                        new
-                        {
-                            TagId = new Guid("63adcb97-a096-4c7b-bf24-03ce1d5547e8"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Hats",
-                            Ordinal = 12
-                        },
-                        new
-                        {
-                            TagId = new Guid("feace32b-c410-410c-bc0a-df2e3e40453b"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Shorts",
-                            Ordinal = 13
-                        },
-                        new
-                        {
-                            TagId = new Guid("4c3ca4e4-f273-401b-9420-128ef1d5c516"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Jeans",
-                            Ordinal = 14
-                        },
-                        new
-                        {
-                            TagId = new Guid("15ce4012-9ed3-4bbe-af24-81ef3f1ccaa3"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Cardigans",
-                            Ordinal = 15
-                        },
-                        new
-                        {
-                            TagId = new Guid("05cb9e09-af51-4fe0-9964-031ebb88fa14"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Boots",
-                            Ordinal = 16
-                        },
-                        new
-                        {
-                            TagId = new Guid("1214d400-80d7-400a-a095-e0feefa3f9eb"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Jackets",
-                            Ordinal = 17
-                        },
-                        new
-                        {
-                            TagId = new Guid("5d145f1d-54eb-42a9-8194-7e986867000c"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Polo_Shirts",
-                            Ordinal = 18
-                        },
-                        new
-                        {
-                            TagId = new Guid("843873fc-605a-48ae-9139-1edd7a5f7e8f"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Pants",
-                            Ordinal = 19
-                        },
-                        new
-                        {
-                            TagId = new Guid("1f4a2d98-0cd7-4be1-b70a-99c166bd67b8"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Coats",
-                            Ordinal = 20
-                        },
-                        new
-                        {
-                            TagId = new Guid("d8fcfa38-cf74-4ab6-a7f1-8ad6de12fb7e"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Blazers",
-                            Ordinal = 21
-                        },
-                        new
-                        {
-                            TagId = new Guid("22f60eb0-8016-4652-a1be-fa062731ba50"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Overshirts",
-                            Ordinal = 22
-                        },
-                        new
-                        {
-                            TagId = new Guid("99e2db19-fa0c-4ea8-ab1c-f7cee1dcf6dd"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Hoodies",
-                            Ordinal = 23
-                        },
-                        new
-                        {
-                            TagId = new Guid("327c812f-d81d-41eb-93e4-f71b0d20c5e5"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Sweatshirt",
-                            Ordinal = 24
-                        },
-                        new
-                        {
-                            TagId = new Guid("14ffc92b-de97-4fde-bdbc-bb8d71c5a18b"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Colognes",
-                            Ordinal = 25
-                        },
-                        new
-                        {
-                            TagId = new Guid("35362f06-4cad-413d-b2b5-7b2027a6869b"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Perfumes",
-                            Ordinal = 26
-                        },
-                        new
-                        {
-                            TagId = new Guid("79ca5945-a5cf-47a6-8626-f78a997861b6"),
-                            ItemId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Name = "Accessories",
-                            Ordinal = 27
-                        });
                 });
 
             modelBuilder.Entity("ClothingStore.Domain.Entities.User", b =>
@@ -673,11 +476,13 @@ namespace ClothingStore.Persistence.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Items_Reviews");
 
-                    b.HasOne("ClothingStore.Domain.Entities.Review", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("ReviewId1");
+                    b.HasOne("ClothingStore.Domain.Entities.Review", "ParentReview")
+                        .WithMany("Replies")
+                        .HasForeignKey("ParentReviewId");
 
                     b.Navigation("Item");
+
+                    b.Navigation("ParentReview");
                 });
 
             modelBuilder.Entity("ClothingStore.Domain.Entities.ShoppingCart", b =>
@@ -805,7 +610,7 @@ namespace ClothingStore.Persistence.Migrations
 
             modelBuilder.Entity("ClothingStore.Domain.Entities.Review", b =>
                 {
-                    b.Navigation("Reviews");
+                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("ClothingStore.Domain.Entities.ShoppingCart", b =>

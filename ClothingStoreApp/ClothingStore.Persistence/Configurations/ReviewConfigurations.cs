@@ -20,8 +20,10 @@ namespace ClothingStore.Persistence.Configurations
 
             builder.HasOne(r => r.ParentReview)
            .WithMany(r => r.Replies)
-           .HasForeignKey(r => r.ParentReviewId)
-           .OnDelete(DeleteBehavior.Cascade);
+           .HasForeignKey(r => r.ParentReviewId);
+            builder.Property(review => review.Content)
+                .IsRequired()
+                .HasMaxLength(1000);
         }
     }   
     

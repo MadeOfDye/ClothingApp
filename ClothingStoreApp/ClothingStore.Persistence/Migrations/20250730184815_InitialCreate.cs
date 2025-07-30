@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace ClothingStore.Persistence.Migrations
 {
     /// <inheritdoc />
@@ -21,7 +19,7 @@ namespace ClothingStore.Persistence.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Hot = table.Column<bool>(type: "bit", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     LastChance = table.Column<bool>(type: "bit", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Collection = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: ""),
@@ -80,14 +78,14 @@ namespace ClothingStore.Persistence.Migrations
                 {
                     ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParentReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     Dislikes = table.Column<int>(type: "int", nullable: false),
                     IsFlagged = table.Column<bool>(type: "bit", nullable: false),
                     TimesEdited = table.Column<int>(type: "int", nullable: false),
-                    LastEdited = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    ReviewId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    LastEdited = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,8 +97,8 @@ namespace ClothingStore.Persistence.Migrations
                         principalColumn: "ItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reviews_Reviews_ReviewId1",
-                        column: x => x.ReviewId1,
+                        name: "FK_Reviews_Reviews_ParentReviewId",
+                        column: x => x.ParentReviewId,
                         principalTable: "Reviews",
                         principalColumn: "ReviewId");
                 });
@@ -277,41 +275,6 @@ namespace ClothingStore.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Tags",
-                columns: new[] { "TagId", "ItemId", "Name", "Ordinal" },
-                values: new object[,]
-                {
-                    { new Guid("05cb9e09-af51-4fe0-9964-031ebb88fa14"), new Guid("00000000-0000-0000-0000-000000000000"), "Boots", 16 },
-                    { new Guid("0a415d2d-24fa-43af-a491-dc207c5c13bd"), new Guid("00000000-0000-0000-0000-000000000000"), "Dress_Shoes", 5 },
-                    { new Guid("0eaa402d-8656-4aa0-9faa-b390b9cd6ecb"), new Guid("00000000-0000-0000-0000-000000000000"), "Dress", 2 },
-                    { new Guid("110594f3-7f59-406d-91b0-6143f3cc258b"), new Guid("00000000-0000-0000-0000-000000000000"), "Tennis_shoes", 7 },
-                    { new Guid("1214d400-80d7-400a-a095-e0feefa3f9eb"), new Guid("00000000-0000-0000-0000-000000000000"), "Jackets", 17 },
-                    { new Guid("14ffc92b-de97-4fde-bdbc-bb8d71c5a18b"), new Guid("00000000-0000-0000-0000-000000000000"), "Colognes", 25 },
-                    { new Guid("15ce4012-9ed3-4bbe-af24-81ef3f1ccaa3"), new Guid("00000000-0000-0000-0000-000000000000"), "Cardigans", 15 },
-                    { new Guid("1f4a2d98-0cd7-4be1-b70a-99c166bd67b8"), new Guid("00000000-0000-0000-0000-000000000000"), "Coats", 20 },
-                    { new Guid("22f60eb0-8016-4652-a1be-fa062731ba50"), new Guid("00000000-0000-0000-0000-000000000000"), "Overshirts", 22 },
-                    { new Guid("2d800a18-f6c7-4171-b236-95cb1b82a66b"), new Guid("00000000-0000-0000-0000-000000000000"), "Skirt", 3 },
-                    { new Guid("327c812f-d81d-41eb-93e4-f71b0d20c5e5"), new Guid("00000000-0000-0000-0000-000000000000"), "Sweatshirt", 24 },
-                    { new Guid("35362f06-4cad-413d-b2b5-7b2027a6869b"), new Guid("00000000-0000-0000-0000-000000000000"), "Perfumes", 26 },
-                    { new Guid("456d936e-5c44-4589-929d-5836ecb64abe"), new Guid("00000000-0000-0000-0000-000000000000"), "Poncho", 4 },
-                    { new Guid("46f7c272-c285-4b93-a058-b6d86de1246d"), new Guid("00000000-0000-0000-0000-000000000000"), "Caps", 11 },
-                    { new Guid("4c3ca4e4-f273-401b-9420-128ef1d5c516"), new Guid("00000000-0000-0000-0000-000000000000"), "Jeans", 14 },
-                    { new Guid("58f3f330-f4b7-498f-bdec-9ba1bcca0673"), new Guid("00000000-0000-0000-0000-000000000000"), "Sneakers", 6 },
-                    { new Guid("5d145f1d-54eb-42a9-8194-7e986867000c"), new Guid("00000000-0000-0000-0000-000000000000"), "Polo_Shirts", 18 },
-                    { new Guid("63adcb97-a096-4c7b-bf24-03ce1d5547e8"), new Guid("00000000-0000-0000-0000-000000000000"), "Hats", 12 },
-                    { new Guid("79ca5945-a5cf-47a6-8626-f78a997861b6"), new Guid("00000000-0000-0000-0000-000000000000"), "Accessories", 27 },
-                    { new Guid("843873fc-605a-48ae-9139-1edd7a5f7e8f"), new Guid("00000000-0000-0000-0000-000000000000"), "Pants", 19 },
-                    { new Guid("99e2db19-fa0c-4ea8-ab1c-f7cee1dcf6dd"), new Guid("00000000-0000-0000-0000-000000000000"), "Hoodies", 23 },
-                    { new Guid("ae47258a-791d-4cd0-a71a-ec932d1d82e9"), new Guid("00000000-0000-0000-0000-000000000000"), "Dress_Shirt", 9 },
-                    { new Guid("d8fcfa38-cf74-4ab6-a7f1-8ad6de12fb7e"), new Guid("00000000-0000-0000-0000-000000000000"), "Blazers", 21 },
-                    { new Guid("da98d9fe-62e2-43db-98d7-60e6529bb59c"), new Guid("00000000-0000-0000-0000-000000000000"), "Shirt", 1 },
-                    { new Guid("e1a86080-ed96-4d55-b354-b2022f2713af"), new Guid("00000000-0000-0000-0000-000000000000"), "V_necks", 8 },
-                    { new Guid("f6aaeda0-fef3-4a4e-8f55-9f5191261b7a"), new Guid("00000000-0000-0000-0000-000000000000"), "Sweater", 0 },
-                    { new Guid("f7b4865c-ffa2-426a-a5df-1b0392aaefba"), new Guid("00000000-0000-0000-0000-000000000000"), "Blouse", 10 },
-                    { new Guid("feace32b-c410-410c-bc0a-df2e3e40453b"), new Guid("00000000-0000-0000-0000-000000000000"), "Shorts", 13 }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AvailableLocations_SizeId",
                 table: "AvailableLocations",
@@ -343,9 +306,9 @@ namespace ClothingStore.Persistence.Migrations
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_ReviewId1",
+                name: "IX_Reviews_ParentReviewId",
                 table: "Reviews",
-                column: "ReviewId1");
+                column: "ParentReviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCarts_UserId",

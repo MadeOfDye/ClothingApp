@@ -15,6 +15,7 @@ namespace ClothingStore.Persistence.Context
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile("appsettings.Development.json", optional: true)
                 .Build();
+            Console.WriteLine(Directory.GetCurrentDirectory());
 
             string connectionString = configuration.GetConnectionString("DeveloperConnection");
 
