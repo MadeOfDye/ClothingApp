@@ -1,7 +1,5 @@
 ﻿namespace ClothingStore.Domain.Entities
 {
-    using ClothingStore.Domain.ValueObjects;
-
     public class AvailableLocationBySize
     {
         public Guid LocationId { get; set; }

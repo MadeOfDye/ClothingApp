@@ -1,6 +1,5 @@
 ﻿namespace ClothingStore.Domain.Entities
 {
-    using ClothingStore.Domain.Enumerators;
     using ClothingStore.Domain.Interfaces;
     using System.Text.RegularExpressions;
 
