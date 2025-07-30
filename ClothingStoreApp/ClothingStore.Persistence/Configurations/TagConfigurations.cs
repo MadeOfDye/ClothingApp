@@ -9,17 +9,9 @@ namespace ClothingStore.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
-            builder.ToTable("Tags");    
+            builder.ToTable("Tags");
             builder.HasKey(tag => tag.TagId)
                 .HasName("PK_Tags");
-            var seeds = Enum.GetValues<TagEnum>()
-            .Select((enumVal, idx) => new Tag(
-                name: enumVal.ToString(),
-                ordinal: (int)enumVal
-            ))
-            .ToArray();
-
-            builder.HasData(seeds);
         }
     }
 }

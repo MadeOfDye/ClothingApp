@@ -143,7 +143,7 @@ namespace ClothingStore.Domain.Tests.EntityTests
         public void AddTag_WithValidTag_ShouldAddToTags()
         {
             Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = Tag.Coats;
+            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
             item.AddTag(tag);
             Assert.Contains(tag, item.Tags);
         }
@@ -151,7 +151,7 @@ namespace ClothingStore.Domain.Tests.EntityTests
         public void AddTag_WithTagAlreadyExists_ShouldThrowInvalidOperationException()
         {
             Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = Tag.Coats;
+            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
             item.AddTag(tag);
             Assert.Throws<InvalidOperationException>(() => item.AddTag(tag));
         }
@@ -166,7 +166,7 @@ namespace ClothingStore.Domain.Tests.EntityTests
         public void RemoveTag_WithValidTag_ShouldRemoveFromTags()
         {
             Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = Tag.Coats;
+            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
             item.AddTag(tag);
             item.RemoveTag(tag);
             Assert.DoesNotContain(tag, item.Tags);
@@ -175,7 +175,7 @@ namespace ClothingStore.Domain.Tests.EntityTests
         public void RemoveTag_WithTagNotExists_ShouldThrowInvalidOperationException()
         {
             Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = Tag.Coats;
+            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
             Assert.Throws<InvalidOperationException>(() => item.RemoveTag(tag));
         }
         [Fact]

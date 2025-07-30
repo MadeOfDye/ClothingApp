@@ -1,12 +1,6 @@
 ﻿using ClothingStore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using ClothingStore.Domain.Enumerators;
 namespace ClothingStore.Persistence.Context
 {
     public class ApplicationDbContext: DbContext

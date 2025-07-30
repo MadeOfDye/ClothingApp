@@ -1,4 +1,4 @@
-﻿using ClothingStore.Domain.ValueObjects;
+﻿using ClothingStore.Domain.Entities;
 
 namespace ClothingStore.Domain.Tests.ValueObjectTests
 {

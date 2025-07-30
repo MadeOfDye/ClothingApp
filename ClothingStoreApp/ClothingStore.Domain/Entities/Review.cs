@@ -6,13 +6,15 @@
         public Guid ReviewId { get; private set; }
         public Guid ItemId { get; private set; }
 
+        public Guid? ParentReviewId { get; private set; }
+        public Review? ParentReview { get; private set; }
         public Item Item { get; private set; }// Navigation property for EFCore
         public string Content { get; private set; }
         public DateTimeOffset CreatedAt { get; private set; }
         public int Likes { get; private set; }
         public int Dislikes { get; private set; }
-        private List<Review> _comments = new();
-        public IReadOnlyCollection<Review> Reviews => _comments;
+        private List<Review> _replies = new();
+        public IReadOnlyCollection<Review> Replies => _replies;
         public bool IsFlagged { get; private set; }
         //TODO: Another parameter will be a list of Reports with Report being an entity that is outside the scope of the current vertical slice.
         public int TimesEdited { get; private set; }

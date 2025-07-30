@@ -15,6 +15,7 @@
         {
             CartItemId = Guid.NewGuid();
             Item = item ?? throw new ArgumentNullException(nameof(item), "Item cannot be null");
+            ItemId = item.ItemId;
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be greater than zero", nameof(quantity));
             Quantity = quantity;

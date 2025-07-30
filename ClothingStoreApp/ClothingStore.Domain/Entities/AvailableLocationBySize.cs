@@ -2,13 +2,14 @@
 {
     public class AvailableLocationBySize
     {
-        public Guid LocationId { get; set; }
-        public Guid VariantId { get; set; }
+        public Guid LocationId { get; private set; }
+        public Guid VariantId { get; private set; }
 
         //Navigation property for EFCore
-        public Variant Variant { get; set; }
+        public Variant Variant { get; private set; }
 
-        public Size Size { get; set; }
+        public Size Size { get; private set; }
+        public Guid SizeId { get; private set; }
         private readonly HashSet<StockByLocation> _availableLocationsOfGivenSize = new();
         public IReadOnlyCollection<StockByLocation> AvailableLocationsOfGivenSize => _availableLocationsOfGivenSize;
         public int TotalStockOfSize => _availableLocationsOfGivenSize.Sum(s => s.Stock);
@@ -21,6 +22,7 @@
             if (size == null)
                 throw new ArgumentNullException(nameof(size) + " does not exist");
             Size = size;
+            SizeId = size.SizeId;
         }
 
         public void AddStock(StockByLocation stock)
