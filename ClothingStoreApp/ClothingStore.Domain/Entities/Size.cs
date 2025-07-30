@@ -1,11 +1,13 @@
-﻿namespace ClothingStore.Domain.ValueObjects
+﻿namespace ClothingStore.Domain.Entities
 {
     public class Size
     {
+        public Guid SizeId { get; private set; }
         public string Letter { get; private set; }
-        public Size() { }
+        protected Size() { }
         public Size(string letter)
         {
+            SizeId = Guid.NewGuid();
             Letter = letter ?? throw new ArgumentNullException(nameof(letter), "Letter cannot be null");
         }
     }
@@ -18,6 +20,8 @@
         public float SleeveLength { get; private set; }
         public float SleeveCircumference { get; private set; }
         public float NeckCircumference { get; private set; }
+
+        protected ShirtSize() { }
         public ShirtSize(string letter, float length, float shoulderWidth, float chestWidth, float sleeveLength): base(letter)
         {
             if (length < 0 || shoulderWidth < 0 || chestWidth < 0 || sleeveLength < 0)
@@ -34,6 +38,7 @@
         public float Waist { get; private set; }
         public float Inseam { get; private set; }
         public float PantLegCircumference { get; private set; }
+        protected PantSize() { }
         public PantSize(string letter, float waist, float inseam) : base(letter)
         {
             if (waist < 0 || inseam < 0)
@@ -48,6 +53,8 @@
         public float Length { get; private set; }
         public float Width { get; private set; }
         public float? HeelHeight { get; private set; }
+
+        protected ShoeSize() { }
         public ShoeSize(string letter, float length, float width) : base(letter)
         {
             if (length < 0 || width < 0)
@@ -69,6 +76,8 @@
     public class HatSize : Size
     {
         public float Circumference { get; private set; }
+        //Maybe add a brim size or style in the future
+        protected HatSize() { }
         public HatSize(string letter, float circumference) : base(letter)
         {
             if (circumference < 0)
@@ -82,6 +91,7 @@
         public float Bust { get; private set; }
         public float Waist { get; private set; }
         public float Hip { get; private set; }
+        protected DressSize() { }
         public DressSize(string letter, float bust, float waist, float hip) : base(letter)
         {
             if (bust < 0 || waist < 0 || hip < 0)

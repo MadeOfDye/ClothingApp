@@ -1,5 +1,4 @@
 ﻿using ClothingStore.Domain.Entities;
-using ClothingStore.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

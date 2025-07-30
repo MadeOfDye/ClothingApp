@@ -1,7 +1,5 @@
 ﻿namespace ClothingStore.Domain.Entities
 {
-    using ClothingStore.Domain.ValueObjects;
-
     public class ShoppingCart
     {
         public Guid CartId { get; private set; }

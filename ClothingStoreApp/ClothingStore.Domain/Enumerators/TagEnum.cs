@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClothingStore.Domain.Enumerators
+﻿namespace ClothingStore.Domain.Enumerators
 {
-    public enum Tag
+    public enum TagEnum
     {
         Sweater,
         Shirt,

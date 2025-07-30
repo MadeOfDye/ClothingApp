@@ -1,18 +1,19 @@
-﻿using ClothingStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClothingStore.Domain.ValueObjects
+﻿namespace ClothingStore.Domain.Entities
 {
     public class CartItem
     {
+        public Guid CartItemId { get; private set; }
+        public Guid ShoppingCartId { get; private set; }
+        public ShoppingCart ShoppingCart { get; private set; }
+        public Guid ItemId { get; private set; }
         public Item Item { get; private set; }
         public int Quantity { get; private set; }
+
+        protected CartItem() { }
+
         public CartItem(Item item, int quantity)
         {
+            CartItemId = Guid.NewGuid();
             Item = item ?? throw new ArgumentNullException(nameof(item), "Item cannot be null");
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be greater than zero", nameof(quantity));
