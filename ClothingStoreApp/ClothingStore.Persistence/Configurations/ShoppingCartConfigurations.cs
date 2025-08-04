@@ -9,7 +9,7 @@ namespace ClothingStore.Persistence.Configurations
         public void Configure(EntityTypeBuilder<ShoppingCart> builder)
         {
             builder.ToTable("ShoppingCarts");
-            builder.HasKey(cart => cart.CartId);
+            builder.HasKey(cart => cart.ShoppingCartId);
             builder.Property(cart => cart.UserId)
                 .IsRequired();
             builder.Property(cart => cart.CreatedAt)

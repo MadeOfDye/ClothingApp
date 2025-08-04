@@ -31,6 +31,10 @@ namespace ClothingStore.Persistence.Configurations
             builder.Property(item => item.MaterialDistribution)
                 .IsRequired();
 
+            builder.Property(item => item.CreatedAt)
+                .HasColumnType("datetimeoffset(0)")
+                .HasDefaultValueSql("SYSUTCDATETIME()");
+
             builder.HasMany(item => item.Variants)
                 .WithOne(variant => variant.Item)
                 .HasForeignKey(variant => variant.ItemId)

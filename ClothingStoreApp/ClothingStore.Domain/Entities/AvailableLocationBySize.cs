@@ -2,7 +2,7 @@
 {
     public class AvailableLocationBySize
     {
-        public Guid LocationId { get; private set; }
+        public Guid AvailableLocationBySizeId { get; private set; }
         public Guid VariantId { get; private set; }
 
         //Navigation property for EFCore
@@ -18,7 +18,7 @@
 
         public AvailableLocationBySize(Size size)
         {
-            LocationId = Guid.NewGuid();
+            AvailableLocationBySizeId = Guid.NewGuid();
             if (size == null)
                 throw new ArgumentNullException(nameof(size) + " does not exist");
             Size = size;
@@ -50,7 +50,7 @@
         {
             if (stockId == Guid.Empty)
                 throw new ArgumentNullException(nameof(stockId), "Stock cannot be null");
-            StockByLocation stock = _availableLocationsOfGivenSize.FirstOrDefault(s => s.StockId == stockId)
+            StockByLocation stock = _availableLocationsOfGivenSize.FirstOrDefault(s => s.StockByLocationId == stockId)
                 ?? throw new InvalidOperationException("Stock not found");
             _availableLocationsOfGivenSize.Remove(stock);
         }

@@ -38,7 +38,7 @@
 
         public void AddLocation(AvailableLocationBySize location)
         {
-            if (_availableLocations.Any(l => l.LocationId == location.LocationId && l.Size == location.Size))
+            if (_availableLocations.Any(l => l.AvailableLocationBySizeId == location.AvailableLocationBySizeId && l.Size == location.Size))
                 throw new InvalidOperationException("Location/Size combo exists");
             //if(location.VariantId != VariantId)
             //    throw new InvalidOperationException("Location must belong to this Variant.");
@@ -49,7 +49,7 @@
         {
             if (locationId == Guid.Empty)
                 throw new ArgumentNullException(nameof(locationId), "Location cannot be null");
-            AvailableLocationBySize location = _availableLocations.FirstOrDefault(l => l.LocationId == locationId) ?? throw new InvalidOperationException("Location not found");
+            AvailableLocationBySize location = _availableLocations.FirstOrDefault(l => l.AvailableLocationBySizeId == locationId) ?? throw new InvalidOperationException("Location not found");
             _availableLocations.Remove(location);
         }
 
