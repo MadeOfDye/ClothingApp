@@ -74,7 +74,7 @@ namespace ClothingStore.Domain.Tests.EntityTests
             Size size = new Size("M");
             AvailableLocationBySize location = new AvailableLocationBySize(size);
             variant.AddLocation(location);
-            variant.RemoveLocation(location.LocationId);
+            variant.RemoveLocation(location.AvailableLocationBySizeId);
             Assert.DoesNotContain(location, variant.AvailableLocations);
         }
         [Fact]

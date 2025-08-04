@@ -8,7 +8,7 @@ namespace ClothingStore.Persistence.Configurations
         public void Configure(EntityTypeBuilder<StockByLocation> builder)
         {
             builder.ToTable("StocksByLocations");
-            builder.HasKey(stock => stock.StockId)
+            builder.HasKey(stock => stock.StockByLocationId)
                 .HasName("PK_Stock");
             builder.Property(stock => stock.Stock)
                 .IsRequired()

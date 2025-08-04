@@ -4,7 +4,7 @@
 
     public class StockByLocation
     {
-        public Guid StockId { get; private set; }
+        public Guid StockByLocationId { get; private set; }
         public Guid LocationBySizeId { get; private set; }
         public AvailableLocationBySize LocationBySize { get; private set; }
         public int Stock {  get; private set; }
@@ -14,7 +14,7 @@
 
         public StockByLocation(int quantity, Location location)
         {
-            StockId = Guid.NewGuid();
+            StockByLocationId = Guid.NewGuid();
             Stock = quantity >= 0 ? quantity
                                   : throw new ArgumentException("Quantity >= 0");
             Location = location;

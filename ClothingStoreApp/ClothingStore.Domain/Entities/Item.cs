@@ -3,6 +3,7 @@
     using ClothingStore.Domain.Interfaces;
     using System.Text.RegularExpressions;
     using ClothingStore.Domain.Enumerators;
+    using System.Diagnostics.Contracts;
 
     public class Item : IAggregateRoot
     {
@@ -23,6 +24,7 @@
         public string? CareGuide { get; private set; }
         public string? MaterialDistribution { get; private set; }
         public int TotalStock => _variants.Sum(v => v.TotalQuantity);
+        public DateTimeOffset CreatedAt { get; }
 
         protected Item() { }
 
@@ -42,6 +44,7 @@
             if (string.IsNullOrWhiteSpace(careGuide))
                 throw new ArgumentException("Care guide cannot be null or empty", nameof(careGuide));
             CareGuide = careGuide;
+            DateTimeOffset now = DateTimeOffset.UtcNow;
         }
 
         public void SetHot(bool isHot)

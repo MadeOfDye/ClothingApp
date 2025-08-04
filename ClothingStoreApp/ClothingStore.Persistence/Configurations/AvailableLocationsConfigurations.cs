@@ -8,7 +8,7 @@ namespace ClothingStore.Persistence.Configurations
         public void Configure(EntityTypeBuilder<AvailableLocationBySize> builder)
         {
             builder.ToTable("AvailableLocations");
-            builder.HasKey(location => location.LocationId);
+            builder.HasKey(location => location.AvailableLocationBySizeId);
             //builder.Property(location => location.TotalStockOfSize)
             //    .IsRequired()
             //    .HasColumnType("int");

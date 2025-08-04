@@ -1,8 +1,10 @@
-﻿namespace ClothingStore.Domain.Entities
+﻿using ClothingStore.Domain.Interfaces;
+
+namespace ClothingStore.Domain.Entities
 {
-    public class ShoppingCart
+    public class ShoppingCart: IAggregateRoot
     {
-        public Guid CartId { get; private set; }
+        public Guid ShoppingCartId { get; private set; }
         public Guid UserId { get; private set; }
         public User User { get; private set; }
         private HashSet<CartItem> _items = new();
@@ -11,7 +13,7 @@
         protected ShoppingCart() { }
         public ShoppingCart(Guid userId)
         {
-            CartId = Guid.NewGuid();
+            ShoppingCartId = Guid.NewGuid();
             UserId = userId;
             CreatedAt = DateTime.UtcNow;
         }
