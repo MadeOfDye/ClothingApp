@@ -1,6 +1,4 @@
-using ClothingStore.Persistence.Context;
 using ClothingStore.Persistence.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

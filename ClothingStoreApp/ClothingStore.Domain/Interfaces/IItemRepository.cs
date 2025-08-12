@@ -6,5 +6,6 @@ namespace ClothingStore.Domain.Interfaces
     {
         // Placeholder for additional methods specific to Item repository
         Task<IReadOnlyList<Item>> GetHotItemsAsync(int count, CancellationToken ct);
+        Task<Item?> GetItemByIdWithIncludesAsync(Guid id, CancellationToken ct = default);
     }
 }

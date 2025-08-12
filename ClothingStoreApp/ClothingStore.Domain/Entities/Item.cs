@@ -2,13 +2,12 @@
 {
     using ClothingStore.Domain.Interfaces;
     using System.Text.RegularExpressions;
-    using ClothingStore.Domain.Enumerators;
-    using System.Diagnostics.Contracts;
 
     public class Item : IAggregateRoot
     {
         public Guid ItemId { get; private set; }
         public string Name { get; private set; }
+        public string? Description { get; private set; }
         private readonly HashSet<Variant> _variants = new();
         public IReadOnlyCollection<Variant> Variants => _variants;
         public bool Hot { get; private set; }
@@ -28,25 +27,37 @@
 
         protected Item() { }
 
-        public Item(string name, decimal price, string brand, string collection, string careGuide)
+        public Item(string name, string description, decimal price, string brand, string collection, string careGuide)
         {
             ItemId = Guid.NewGuid();
             Name = !string.IsNullOrWhiteSpace(name)
                 ? name
                 : throw new ArgumentException("Name is required");
-            if (collection != System.String.Empty && !string.IsNullOrWhiteSpace(collection))
+            Description = description;
+            if (collection != String.Empty && !string.IsNullOrWhiteSpace(collection))
                 Collection = collection;
             else
-                Collection = System.String.Empty;
+                Collection = String.Empty;
             Price = (price >= 0) ? price : throw new ArgumentException("Price must be a positive integer value");
             Brand = !string.IsNullOrWhiteSpace(brand) ? brand : throw new ArgumentException("Must specify the brand of clothing");
-            MaterialDistribution = System.String.Empty;
+            MaterialDistribution =String.Empty;
             if (string.IsNullOrWhiteSpace(careGuide))
                 throw new ArgumentException("Care guide cannot be null or empty", nameof(careGuide));
             CareGuide = careGuide;
             DateTimeOffset now = DateTimeOffset.UtcNow;
         }
 
+
+        public void UpdateName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Name cannot be null or empty", nameof(name));
+            Name = name;
+        }   
+        public void UpdateDescription(string description)
+        {
+            Description = !string.IsNullOrWhiteSpace(description) ? description : throw new ArgumentException("Description cannot be null or empty", nameof(description));
+        }
         public void SetHot(bool isHot)
         {
             Hot = isHot;

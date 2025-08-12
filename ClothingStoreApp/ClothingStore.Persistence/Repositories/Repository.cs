@@ -59,9 +59,9 @@ namespace ClothingStore.Persistence.Repositories
            return await _context.Set<T>().Where(filter).ToListAsync(ct);
         }
 
-        public IQueryable<T> Query()
+        public IQueryable<T> Query(Expression<Func<T, bool>>? filter = null)
         {
-            return _context.Set<T>().AsQueryable().AsNoTracking();
+            return filter==null ? _context.Set<T>().AsQueryable().AsNoTracking() : _context.Set<T>().Where(filter).AsQueryable().AsNoTracking();
         }
 
         public  Task<int> SaveChangesAsync(CancellationToken ct = default)
