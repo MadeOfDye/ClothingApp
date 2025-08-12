@@ -7,7 +7,7 @@ namespace ClothingStore.Domain.Interfaces
         Task<T?> GetByIdAsync(Guid Id, CancellationToken ct = default);
         Task<IReadOnlyList<T>> ListAllAsync(CancellationToken ct = default);
         Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>> filter, CancellationToken ct = default);
-        IQueryable<T> Query();
+        IQueryable<T> Query(Expression<Func<T, bool>>? filter = null);
         Task<T?> AddAsync(T entity, CancellationToken ct = default);
         void Update(T entity);
         void Delete(T entity);

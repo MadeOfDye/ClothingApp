@@ -18,11 +18,9 @@
 
   <ItemGroup>
     <Folder Include="Commands\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Behaviours\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Validators\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>
