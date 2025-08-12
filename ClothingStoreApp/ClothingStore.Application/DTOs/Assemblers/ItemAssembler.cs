@@ -2,7 +2,6 @@
 {
     using ClothingStore.Application.DTOs;
     using ClothingStore.Domain.Entities;
-    using System.Threading;
 
     public static class ItemAssembler
     {
@@ -10,7 +9,7 @@
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item), "Item cannot be null");
-            return new ItemDto   // projection to DTO (EF will translate)
+            return new ItemDto
             {
                 ItemId = item.ItemId,
                 Name = item.Name,

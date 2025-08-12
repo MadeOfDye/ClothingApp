@@ -68,5 +68,5 @@ namespace ClothingStore.Application.DTOs.Assemblers
                 }).ToList()
             };
     }
-    }
+    
 }

@@ -3,6 +3,8 @@ using ClothingStore.Application.DTOs;
 using ClothingStore.Domain.Interfaces;
 using MediatR;
 using ClothingStore.Application.DTOs.Assemblers;
+using Microsoft.EntityFrameworkCore;
+
 namespace ClothingStore.Application.Queries.Item
 {
     public class ItemQueryHandler : IRequestHandler<GetAllItemsQuery, CollectionResponse<ItemDto>>,
@@ -17,8 +19,9 @@ namespace ClothingStore.Application.Queries.Item
 
         public async Task<CollectionResponse<ItemDto>> Handle(GetAllItemsSortedAndPaginatedQuery query, CancellationToken token)
         {
-            var count = await _itemRepository.Query().CountAsync(token);
-            var items = await _itemRepository.Query()
+            var baseQuery = _itemRepository.Query();
+            var count = await baseQuery.CountAsync(token);
+            var items = await baseQuery
                 .ApplySorting(query.FieldToSortBy, query.Ascending)
                 .ApplyPaging(query.PageNumber, query.PageSize)
                 .Select(ItemProjections.ItemToDto)
@@ -28,22 +31,26 @@ namespace ClothingStore.Application.Queries.Item
 
         public async Task<CollectionResponse<ItemDto>> Handle(GetAllItemsQuery query, CancellationToken token)
         {
-            var count = await _itemRepository.ListAllAsync().CountAsync(token);
-            var items = await _itemRepository.ListAllAsync(token);
-            return new CollectionResponse<ItemDto> 
-            { 
-                Records = items.Select(item => item.ToDTO()).ToList(), 
-                TotalNumberOfRecords = count 
-            };
+            var baseQuery = _itemRepository.Query().AsNoTracking();
+            var count = await baseQuery.CountAsync(token);
+            var items = await baseQuery
+                .Select(ItemProjections.ItemToDto)
+                .ToListAsync(token);
+
+            return new CollectionResponse<ItemDto> { Records = items, TotalNumberOfRecords = count };
         }
 
         public async Task<ItemDto> Handle(GetItemByIdQuery query, CancellationToken token)
         {
-            var item = await _itemRepository.GetByIdAsync(query.Id, token);
-            if (item == null)
+            var dto = await _itemRepository.Query(x => x.ItemId == query.Id)
+                .AsNoTracking()
+                .Select(ItemProjections.ItemToDto)
+                .FirstOrDefaultAsync(token);
+
+            if (dto == null)
                 throw new KeyNotFoundException($"Item with ID {query.Id} not found");
-            return item.ToDTO();
+
+            return dto;
         }
-        public async Task<ItemDto> Handle(GetItemByIdQuery request, CancellationToken cancellationToken)
-            => await _itemRepository.Query(x => x.Id == request.Id).Select(item => item.ToDTO()).FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
+}

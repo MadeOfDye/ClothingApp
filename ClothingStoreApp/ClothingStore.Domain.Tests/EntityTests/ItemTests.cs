@@ -9,11 +9,12 @@ namespace ClothingStore.Domain.Tests.EntityTests
         public void Constructor_WithValidParameters_ShouldInitializeProperties()
         {
             string name = "Test Item";
+            string description = "This is a test item.";
             decimal price = 99.99m;
             string brand = "Test Brand";
             string collection = "Test Collection";
             string careGuide = "Wash with care";
-            Item item = new Item(name, price, brand, collection, careGuide);
+            Item item = new Item(name, description, price, brand, collection, careGuide);
             Assert.Equal(name, item.Name);
             Assert.Equal(price, item.Price);
             Assert.Equal(brand, item.Brand);
