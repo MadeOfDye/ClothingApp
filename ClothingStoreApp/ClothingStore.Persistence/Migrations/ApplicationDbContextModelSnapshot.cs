@@ -24,7 +24,7 @@ namespace ClothingStore.Persistence.Migrations
 
             modelBuilder.Entity("ClothingStore.Domain.Entities.AvailableLocationBySize", b =>
                 {
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("AvailableLocationBySizeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -34,7 +34,7 @@ namespace ClothingStore.Persistence.Migrations
                     b.Property<Guid>("VariantId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("LocationId");
+                    b.HasKey("AvailableLocationBySizeId");
 
                     b.HasIndex("SizeId");
 
@@ -87,6 +87,14 @@ namespace ClothingStore.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset(0)")
+                        .HasDefaultValueSql("SYSUTCDATETIME()");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(5,2)");
@@ -189,7 +197,7 @@ namespace ClothingStore.Persistence.Migrations
 
             modelBuilder.Entity("ClothingStore.Domain.Entities.ShoppingCart", b =>
                 {
-                    b.Property<Guid>("CartId")
+                    b.Property<Guid>("ShoppingCartId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -201,7 +209,7 @@ namespace ClothingStore.Persistence.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("CartId");
+                    b.HasKey("ShoppingCartId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -237,7 +245,7 @@ namespace ClothingStore.Persistence.Migrations
 
             modelBuilder.Entity("ClothingStore.Domain.Entities.StockByLocation", b =>
                 {
-                    b.Property<Guid>("StockId")
+                    b.Property<Guid>("StockByLocationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -249,7 +257,7 @@ namespace ClothingStore.Persistence.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
-                    b.HasKey("StockId")
+                    b.HasKey("StockByLocationId")
                         .HasName("PK_Stock");
 
                     b.HasIndex("LocationBySizeId");
@@ -505,7 +513,7 @@ namespace ClothingStore.Persistence.Migrations
 
                     b.OwnsOne("ClothingStore.Domain.ValueObjects.Location", "Location", b1 =>
                         {
-                            b1.Property<Guid>("StockByLocationStockId")
+                            b1.Property<Guid>("StockByLocationId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Address")
@@ -521,12 +529,12 @@ namespace ClothingStore.Persistence.Migrations
                                 .HasColumnType("float")
                                 .HasColumnName("Longitude");
 
-                            b1.HasKey("StockByLocationStockId");
+                            b1.HasKey("StockByLocationId");
 
                             b1.ToTable("StocksByLocations", (string)null);
 
                             b1.WithOwner()
-                                .HasForeignKey("StockByLocationStockId");
+                                .HasForeignKey("StockByLocationId");
                         });
 
                     b.Navigation("Location");

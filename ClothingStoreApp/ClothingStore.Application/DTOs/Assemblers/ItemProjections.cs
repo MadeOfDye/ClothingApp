@@ -19,7 +19,6 @@ namespace ClothingStore.Application.DTOs.Assemblers
                 Collection = item.Collection,
                 CareGuide = item.CareGuide,
                 MaterialDistribution = item.MaterialDistribution,
-                TotalStock = item.Variants.Sum(v => v.TotalQuantity),
                 CreatedAt = item.CreatedAt,
                 Variants = item.Variants.Select(v => new VariantDto
                 {
@@ -32,7 +31,6 @@ namespace ClothingStore.Application.DTOs.Assemblers
                         Green = v.Color.Green,
                         Blue = v.Color.Blue
                     },
-                    TotalQuantity = v.TotalQuantity,
                     AvailableLocations = v.AvailableLocations.Select(al => new AvailableLocationBySizeDto
                     {
                         AvailableLocationBySizeId = al.AvailableLocationBySizeId,

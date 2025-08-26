@@ -25,4 +25,8 @@
     <ProjectReference Include="..\ClothingStore.Domain\ClothingStore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ValueObjectTests\" />
+  </ItemGroup>
+
 </Project>
