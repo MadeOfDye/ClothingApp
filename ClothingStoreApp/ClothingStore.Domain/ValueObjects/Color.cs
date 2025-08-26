@@ -32,13 +32,13 @@ namespace ClothingStore.Domain.ValueObjects
             byte g = byte.Parse(sanitized.Substring(2, 2), NumberStyles.HexNumber);
             byte b = byte.Parse(sanitized.Substring(4, 2), NumberStyles.HexNumber);
 
-            var normalizedHex = sanitized.ToUpperInvariant();
+            var normalizedHex = "#" + sanitized.ToUpperInvariant();
             return new Color(normalizedHex, r, g, b);
         }
 
         public static Color FromRGB(byte red, byte green, byte blue)
         {
-            string hex = $"{red:X2}{green:X2}{blue:X2}";
+            string hex = $"#{red:X2}{green:X2}{blue:X2}";
             return new Color(hex, red, green, blue);
         }
 
