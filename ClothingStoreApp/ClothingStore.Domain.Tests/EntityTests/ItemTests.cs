@@ -1,199 +1,377 @@
 ﻿using ClothingStore.Domain.Entities;
 using ClothingStore.Domain.ValueObjects;
-using ClothingStore.Domain.Enumerators;
+
 namespace ClothingStore.Domain.Tests.EntityTests
 {
     public class ItemTests
     {
         [Fact]
-        public void Constructor_WithValidParameters_ShouldInitializeProperties()
+        public void CreateItem_ValidParameters_ShouldCreateItem()
         {
-            string name = "Test Item";
-            string description = "This is a test item.";
-            decimal price = 99.99m;
-            string brand = "Test Brand";
-            string collection = "Test Collection";
-            string careGuide = "Wash with care";
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
             Item item = new Item(name, description, price, brand, collection, careGuide);
+
             Assert.Equal(name, item.Name);
+            Assert.Equal(description, item.Description);
             Assert.Equal(price, item.Price);
             Assert.Equal(brand, item.Brand);
-            Assert.Equal(collection, item.Collection);
+            Assert.Equal(String.Empty, item.Collection);
+            Assert.Equal(String.Empty, item.MaterialDistribution);
             Assert.Equal(careGuide, item.CareGuide);
-            Assert.Empty(item.Variants);
+            Assert.False(item.Hot);
+            Assert.False(item.LastChance);
+            Assert.Equal(0, item.Discount);
         }
 
         [Theory]
-        [InlineData("", 12, "valid_brand", "valid_collection", "valid_care_guide")]
-        [InlineData(" ", 12, "valid_brand", "valid_collection", "valid_care_guide")]
-        [InlineData(null, 12, "valid_brand", "valid_collection", "valid_care_guide")]
-        [InlineData("valid_name", -1, "valid_brand", "valid_collection", "valid_care_guide")]
-        [InlineData("valid_name", 12, "", "valid_collection", "valid_care_guide")]
-        [InlineData("valid_name", 12, " ", "valid_collection", "valid_care_guide")]
-        [InlineData("valid_name", 12, null, "valid_collection", "valid_care_guide")]
-        [InlineData("valid_name", 12, "valid_brand", "valid_collection", "")]
-        [InlineData("valid_name", 12, "valid_brand", "valid_collection", " ")]
-        [InlineData("valid_name", 12, "valid_brand", "valid_collection", null)]
-        public void Constructor_WithInvalidParameters_ShouldThrowArgumentException(string name, decimal price, string brand, string collection, string careGuide)
+        [InlineDataAttribute("", "Valid Description", 42, "Valid Brand", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute(null, "Valid Description", 42, "Valid Brand", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute(" ", "Valid Description", 42, "Valid Brand", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute("          ", "Valid Description", 42, "Valid Brand", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute("Valid Name", "Valid Description", -42, "Valid Brand", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, null, "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, "", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, " ", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, "              ", "Valid Collection", "Valid CareGuide")]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, "Valid Brand", "Valid Collection", null)]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, "Valid Brand", "Valid Collection", "")]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, "Valid Brand", "Valid Collection", " ")]
+        [InlineDataAttribute("Valid Name", "Valid Description", 42, "Valid Brand", "Valid Collection", "        ")]
+        public void CreateItem_InvalidParameters_ShouldThrowArgumentException(string name, string description, decimal price, string brand, string collection, string careGuide)
         {
-            Assert.Throws<ArgumentException>(() => new Item(name, price, brand, collection, careGuide));
+            Assert.Throws<ArgumentException>(() => new Item(name, description, price, brand, collection, careGuide));
         }
 
         [Fact]
-        public void DiscountItem_WithValidDiscount_ShouldUpdateDiscount()
+        public void UpdateName_ValidName_ShouldUpdateName()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            decimal discount = 0.2m; // 20% discount
-            item.DiscountItem(discount);
-            Assert.Equal(discount, item.Discount);
+            string name = "T-Shirt";
+            string newName = "cool T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            item.UpdateName(newName);
+
+            Assert.Equal(newName, item.Name);
         }
-        [Theory]
-        [InlineData(-0.1)]
-        [InlineData(1.1)]
-        public void DiscountItem_WithInvalidDiscount_ShouldThrowArgumentOutOfRangeException(decimal discount)
-        {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Assert.Throws<ArgumentOutOfRangeException>(() => item.DiscountItem(discount));
-        }
-        [Fact]
-        public void SetMaterialDistribution_WithValidDistribution_ShouldUpdateProperty()
-        {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            string distribution = "Cotton: 50%, Polyester: 50%";
-            item.SetMaterialDistribution(distribution);
-            Assert.Equal(distribution, item.MaterialDistribution);
-        }
+
         [Theory]
         [InlineData("")]
-        [InlineData(" ")]
+        [InlineData("                   ")]
         [InlineData(null)]
-        [InlineData("Invalid Distribution")]
-        public void SetMaterialDistribution_WithInvalidDistribution_ShouldThrowArgumentException(string? distribution)
+        public void UpdateName_NullOrWhitespaceName_ShouldThrowArgumentException(string newName)
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Assert.Throws<ArgumentException>(() => item.SetMaterialDistribution(distribution!));
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+
+            Assert.Throws<ArgumentException>(() => item.UpdateName(newName));
         }
+
         [Fact]
-        public void AddVariant_WithValidVariant_ShouldAddToVariants()
+        public void UpdateDescription_ValidDescription_ShouldUpdateDescription()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Variant variant = new Variant(Color.FromHex("#FFFFFF"));
-            item.AddVariant(variant);
-            Assert.Contains(variant, item.Variants);
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string newDescription = "even cooler T-Shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            item.UpdateDescription(newDescription);
+
+            Assert.Equal(newDescription, item.Description);
         }
-        [Fact]
-        public void AddVariant_WithNullVariant_ShouldThrowArgumentNullException()
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("                   ")]
+        [InlineData(null)]
+        public void UpdateDescription_NullOrWhitespaceDescription_ShouldThrowArgumentException(string newDescription)
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Assert.Throws<ArgumentNullException>(() => item.AddVariant(null!));
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+
+            Assert.Throws<ArgumentException>(() => item.UpdateDescription(newDescription));
         }
-        [Fact]
-        public void AddVariant_WithVariantAlreadyExists_ShouldThrowInvalidOperationException()
-        {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Variant variant = new Variant(Color.FromHex("#FFFFFF"));
-            item.AddVariant(variant);
-            Assert.Throws<InvalidOperationException>(() => item.AddVariant(variant));
-        }
+
         [Fact]
         public void SetHot_ShouldUpdateHotProperty()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+
             item.SetHot(true);
             Assert.True(item.Hot);
-        }
-        [Fact]
-        public void SetLastChance_ShouldUpdateLastChanceProperty()
-        {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            item.SetLastChance(true);
-            Assert.True(item.LastChance);
+            item.SetHot(false);
+            Assert.False(item.Hot);
         }
 
         [Fact]
-        public void TotalStock_ShouldReturnSumOfAllVariantQuantities()
+        public void SetLastChance_ShouldUpdateLastChanceProperty()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Variant variant1 = new Variant(Color.FromHex("#FFFFFF"));
-            AvailableLocationBySize location1 = new AvailableLocationBySize(new Size("M"));
-            location1.AddStock(new StockByLocation(10, new Location(123.0, 123.1)));
-            variant1.AddLocation(location1);
-            Variant variant2 = new Variant(Color.FromHex("#000000"));
-            AvailableLocationBySize location2 = new AvailableLocationBySize(new Size("L"));
-            location2.AddStock(new StockByLocation(5, new Location(123.2, 123.3)));
-            variant2.AddLocation(location2);
-            item.AddVariant(variant1);
-            item.AddVariant(variant2);
-            Assert.Equal(15, item.TotalStock);
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+
+            item.SetLastChance(true);
+            Assert.True(item.LastChance);
+            item.SetLastChance(false);
+            Assert.False(item.LastChance);
         }
+
         [Fact]
-        public void TotalStock_ShouldReturnZero_WhenNoVariants()
+        public void DiscountItem_DiscountBetween0And1_ShouldUpdateDiscount()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Assert.Equal(0, item.TotalStock);
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+
+            item.DiscountItem(0.2m);
+
+            Assert.Equal(0.2m, item.Discount);
         }
-        [Fact]
-        public void TotalStock_ShouldReturnZero_WhenVariantsHaveNoStock()
+
+        [Theory]
+        [InlineData(-0.1)]
+        [InlineData(1.1)]
+        public void DiscountItem_DiscountLessThan0OrGreaterThan1_ShouldThrowArgumentOutOfRangeException(decimal discount)
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Variant variant = new Variant(Color.FromHex("#FFFFFF"));
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Assert.Throws<ArgumentOutOfRangeException>(() => item.DiscountItem(discount));
+        }
+
+        [Fact]
+        public void SetMaterialDistribution_ValidMaterialDistribution_ShouldUpdateMaterialDistribution()
+        {
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            string materialDistribution = "Cotton: 80%, Polyester: 20%";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            item.SetMaterialDistribution(materialDistribution);
+            Assert.Equal(materialDistribution, item.MaterialDistribution);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("                   ")]
+        [InlineData(null)]
+        [InlineData("Cotton 50%, Polyester 50%")] // Missing colons
+        [InlineData("Cotton: 50%, Polyester")] // Missing percentage
+        [InlineData("Cotton: fifty%, Polyester: fifty%")] // Non-numeric percentage
+        public void SetMaterialDistribution_InvalidMaterialDistribution_ShouldThrowArgumentException(string materialDistribution)
+        {
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Assert.Throws<ArgumentException>(() => item.SetMaterialDistribution(materialDistribution));
+        }
+
+        [Fact]
+        public void AddVariant_ShouldAddVariant()
+        {
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Variant variant = new Variant(Color.FromRGB(23, 23, 23));
+
             item.AddVariant(variant);
-            Assert.Equal(0, item.TotalStock);
+
+            Assert.Contains(variant, item.Variants);
         }
+
         [Fact]
-        public void AddTag_WithValidTag_ShouldAddToTags()
+        public void AddVariant_NullVariant_ShouldThrowArgumentNullException()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Assert.Throws<ArgumentNullException>(() => item.AddVariant(null));
+        }
+
+        [Fact]
+        public void AddVariant_DuplicateVariant_ShouldThrowInvalidOperationException()
+        {
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Variant variant = new Variant(Color.FromRGB(23, 23, 23));
+            item.AddVariant(variant);
+            Assert.Throws<InvalidOperationException>(() => item.AddVariant(variant));
+        }
+
+        [Fact]
+        public void AddTag_ShouldAddTag()
+        {
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Tag tag = new Tag("summer", 21);
             item.AddTag(tag);
             Assert.Contains(tag, item.Tags);
         }
+
         [Fact]
-        public void AddTag_WithTagAlreadyExists_ShouldThrowInvalidOperationException()
+        public void AddTag_NullTag_ShouldThrowArgumentNullException()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Assert.Throws<ArgumentNullException>(() => item.AddTag(null));
+        }
+
+        [Fact]
+        public void AddTag_DuplicateTag_ShouldThrowInvalidOperationException()
+        {
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Tag tag = new Tag("summer", 21);
             item.AddTag(tag);
             Assert.Throws<InvalidOperationException>(() => item.AddTag(tag));
         }
+
+        // TODO: Review tests go here after implementing Review entity and functionality
+
         [Fact]
-        public void AddReview_WithValidReview_ShouldAddToReviews()
+        public void RemoveTag_ValidTag_ShouldRemoveTag()
         {
-            Item item = new Item("Test Name", 12, "Test Brand", "Test Collection", "Test Care Guide");
-            Review review = new Review("Test Review");
-            item.AddReview(review);
-        }
-        [Fact]
-        public void RemoveTag_WithValidTag_ShouldRemoveFromTags()
-        {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Tag tag = new Tag("summer", 21);
             item.AddTag(tag);
             item.RemoveTag(tag);
             Assert.DoesNotContain(tag, item.Tags);
         }
+
         [Fact]
-        public void RemoveTag_WithTagNotExists_ShouldThrowInvalidOperationException()
+        public void RemoveTag_TagNotInCollection_ShouldThrowInvalidOperationException()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Tag tag = new Tag("Coats", (int)TagEnum.Coats);
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Tag tag = new Tag("summer", 21);
             Assert.Throws<InvalidOperationException>(() => item.RemoveTag(tag));
         }
+
         [Fact]
-        public void RemoveVariant_WithValidVariant_ShouldRemoveFromVariants()
+        public void RemoveVariant_ValidVariant_ShouldRemoveVariant()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Variant variant = new Variant(Color.FromHex("#FFFFFF"));
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Variant variant = new Variant(Color.FromRGB(23, 23, 23));
             item.AddVariant(variant);
             item.RemoveVariant(variant.VariantId);
             Assert.DoesNotContain(variant, item.Variants);
         }
+
         [Fact]
-        public void RemoveVariant_WithVariantNotExists_ShouldThrowInvalidOperationException()
+        public void RemoveVariant_VariantNotInCollection_ShouldThrowInvalidOperationException()
         {
-            Item item = new Item("Test Item", 100m, "Test Brand", "Test Collection", "Test Care Guide");
-            Variant variant = new Variant(Color.FromHex("#FFFFFF"));
+            string name = "T-Shirt";
+            string description = "A cool shirt";
+            string collection = String.Empty;
+            decimal price = 23.99m;
+            string brand = "Abibas";
+            string careGuide = "Machine wash cold";
+            Item item = new Item(name, description, price, brand, collection, careGuide);
+            Variant variant = new Variant(Color.FromRGB(23, 23, 23));
             Assert.Throws<InvalidOperationException>(() => item.RemoveVariant(variant.VariantId));
         }
-     }
-}
+    }
+
+ }

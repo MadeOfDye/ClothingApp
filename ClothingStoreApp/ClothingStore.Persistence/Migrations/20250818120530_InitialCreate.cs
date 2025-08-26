@@ -17,6 +17,7 @@ namespace ClothingStore.Persistence.Migrations
                 {
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Hot = table.Column<bool>(type: "bit", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
@@ -24,7 +25,8 @@ namespace ClothingStore.Persistence.Migrations
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Collection = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: ""),
                     CareGuide = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MaterialDistribution = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    MaterialDistribution = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset(0)", nullable: false, defaultValueSql: "SYSUTCDATETIME()")
                 },
                 constraints: table =>
                 {
@@ -149,13 +151,13 @@ namespace ClothingStore.Persistence.Migrations
                 name: "ShoppingCarts",
                 columns: table => new
                 {
-                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ShoppingCartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset(0)", nullable: false, defaultValueSql: "SYSUTCDATETIME()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCarts", x => x.CartId);
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.ShoppingCartId);
                     table.ForeignKey(
                         name: "FK_Users_ShoppingCarts",
                         column: x => x.UserId,
@@ -168,13 +170,13 @@ namespace ClothingStore.Persistence.Migrations
                 name: "AvailableLocations",
                 columns: table => new
                 {
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AvailableLocationBySizeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VariantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SizeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AvailableLocations", x => x.LocationId);
+                    table.PrimaryKey("PK_AvailableLocations", x => x.AvailableLocationBySizeId);
                     table.ForeignKey(
                         name: "FK_AvailableLocations_Sizes_SizeId",
                         column: x => x.SizeId,
@@ -232,7 +234,7 @@ namespace ClothingStore.Persistence.Migrations
                         name: "FK_ShoppingCartItems_ShoppingCarts",
                         column: x => x.ShoppingCartId,
                         principalTable: "ShoppingCarts",
-                        principalColumn: "CartId",
+                        principalColumn: "ShoppingCartId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -240,7 +242,7 @@ namespace ClothingStore.Persistence.Migrations
                 name: "StocksByLocations",
                 columns: table => new
                 {
-                    StockId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StockByLocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LocationBySizeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Latitude = table.Column<double>(type: "float", nullable: true),
@@ -249,12 +251,12 @@ namespace ClothingStore.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stock", x => x.StockId);
+                    table.PrimaryKey("PK_Stock", x => x.StockByLocationId);
                     table.ForeignKey(
                         name: "FK_StockByLocation_AvailableLocations",
                         column: x => x.LocationBySizeId,
                         principalTable: "AvailableLocations",
-                        principalColumn: "LocationId",
+                        principalColumn: "AvailableLocationBySizeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 

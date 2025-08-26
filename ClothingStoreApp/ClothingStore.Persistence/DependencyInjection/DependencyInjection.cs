@@ -14,7 +14,7 @@ namespace ClothingStore.Persistence.DependencyInjection
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IRepository<Item>, ItemRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             return services;
         }

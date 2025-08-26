@@ -12,7 +12,8 @@
         public IReadOnlyCollection<AvailableLocationBySize> AvailableLocations => _availableLocations;
         private readonly List<Photo> _gallery = new();
         public IReadOnlyCollection<Photo> Gallery => _gallery;
-        public int TotalQuantity => _availableLocations.Sum(a => a.TotalStockOfSize);
+        
+        public int GetTotalQuantity() => _availableLocations.Sum(a => a.GetTotalStockOfSize());
 
         protected Variant() { }
 

@@ -17,7 +17,7 @@ namespace ClothingStore.Persistence.Context
                 .Build();
             Console.WriteLine(Directory.GetCurrentDirectory());
 
-            string connectionString = configuration.GetConnectionString("DeveloperConnection");
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseSqlServer(connectionString);

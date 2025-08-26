@@ -22,7 +22,6 @@
         public string Collection { get; private set; }
         public string? CareGuide { get; private set; }
         public string? MaterialDistribution { get; private set; }
-        public int TotalStock => _variants.Sum(v => v.TotalQuantity);
         public DateTimeOffset CreatedAt { get; }
 
         protected Item() { }
@@ -38,9 +37,12 @@
                 Collection = collection;
             else
                 Collection = String.Empty;
+            Hot = false;
             Price = (price >= 0) ? price : throw new ArgumentException("Price must be a positive integer value");
+            Discount = 0;
             Brand = !string.IsNullOrWhiteSpace(brand) ? brand : throw new ArgumentException("Must specify the brand of clothing");
             MaterialDistribution =String.Empty;
+            LastChance = false;
             if (string.IsNullOrWhiteSpace(careGuide))
                 throw new ArgumentException("Care guide cannot be null or empty", nameof(careGuide));
             CareGuide = careGuide;
@@ -53,7 +55,8 @@
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be null or empty", nameof(name));
             Name = name;
-        }   
+        }
+
         public void UpdateDescription(string description)
         {
             Description = !string.IsNullOrWhiteSpace(description) ? description : throw new ArgumentException("Description cannot be null or empty", nameof(description));
@@ -138,8 +141,6 @@
 
         public void RemoveVariant(Guid variantId)
         {
-            if (variantId == Guid.Empty)
-                throw new ArgumentException("Variant ID cannot be empty", nameof(variantId));
             var variant = _variants.FirstOrDefault(v => v.VariantId == variantId);
             if (variant == null)
                 throw new InvalidOperationException("Variant not found");

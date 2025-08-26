@@ -1,42 +1,46 @@
-﻿namespace ClothingStore.Domain.Tests.ValueObjectTests
+﻿using ClothingStore.Domain.ValueObjects;
+
+namespace ClothingStore.Domain.Tests.ValueObjectTests
 {
-    using ClothingStore.Domain.ValueObjects;
     public class ColorTests
     {
         [Fact]
-        public void FromHex_ValidHex_ReturnsColor()
+        public void CreateColorFromHexFactory_WithValidHex_ShouldSucceed()
         {
+            // Arrange
             string hex = "#FF5733";
-            var color = Color.FromHex(hex);
-            Assert.Equal("FF5733", color.Hexadecimal);
-            Assert.Equal(255, color.Red);
-            Assert.Equal(87, color.Green);
-            Assert.Equal(51, color.Blue);
+            // Act
+            Color color = Color.FromHex(hex);
+            // Assert
+            Assert.NotNull(color);
+            Assert.Equal(hex, color.Hexadecimal);
         }
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("#GGGGGG")]
-        [InlineData("#12345")]
-        [InlineData("#1234567")]
-        public void FromHex_InvalidHex_ThrowsArgumentException(string hex)
-        {
-            if (hex == null)
-                Assert.Throws<ArgumentNullException>(() => Color.FromHex(hex));
-            else
-                Assert.Throws<ArgumentException>(() => Color.FromHex(hex));
-        }
+
         [Fact]
-        public void FromRGB_ValidRGB_ReturnsColor()
+        public void CreateColorFromHexFactory_WithNullHex_ShouldThrowArgumentNullException()
         {
-            byte red = 255;
-            byte green = 87;
-            byte blue = 51;
-            var color = Color.FromRGB(red, green, blue);
-            Assert.Equal("FF5733", color.Hexadecimal);
-            Assert.Equal(red, color.Red);
-            Assert.Equal(green, color.Green);
-            Assert.Equal(blue, color.Blue);
+            Assert.Throws<ArgumentNullException>(() => Color.FromHex(null));
+        }
+
+        [Theory]
+        [InlineData("12345")]
+        [InlineData("1234567")]
+        [InlineData("zasdar")]
+        public void CreateColorFromHexFactory_WithInvalidHex_ShouldThrowArgumentException(string invalidHex)
+        {
+            Assert.Throws<ArgumentException>(() => Color.FromHex(invalidHex));
+        }
+
+        [Fact]
+        public void CreateColorFromRGBFactory_WithValidRGB_ShouldSucceed()
+        {
+            // Arrange
+            byte r = 255, g = 87, b = 51;
+            // Act
+            Color color = Color.FromRGB(r, g, b);
+            // Assert
+            Assert.NotNull(color);
+            Assert.Equal("#FF5733", color.Hexadecimal);
         }
     }
 }

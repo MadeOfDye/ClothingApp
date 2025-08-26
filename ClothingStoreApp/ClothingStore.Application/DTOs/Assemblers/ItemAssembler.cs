@@ -22,7 +22,6 @@
                 Collection = item.Collection,
                 CareGuide = item.CareGuide,
                 MaterialDistribution = item.MaterialDistribution,
-                TotalStock = item.Variants.Sum(v => v.TotalQuantity),
                 CreatedAt = item.CreatedAt,
                 Variants = item.Variants.Select(v => new VariantDto
                 {
@@ -35,7 +34,6 @@
                         Green = v.Color.Green,
                         Blue = v.Color.Blue
                     },
-                    TotalQuantity = v.TotalQuantity,
                     AvailableLocations = v.AvailableLocations.Select(al => new AvailableLocationBySizeDto
                     {
                         AvailableLocationBySizeId = al.AvailableLocationBySizeId,

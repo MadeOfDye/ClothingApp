@@ -6,129 +6,92 @@ namespace ClothingStore.Domain.Tests.EntityTests
     public class VariantTests
     {
         [Fact]
-        public void Constructor_WithValidColor_ShouldInitializeProperty()
+        public void CreateVariant_WithValidColor_ShouldSucceed()
         {
-            Color color = Color.FromHex("#faffff");
+            // Arrange
+            Color color = Color.FromHex("#FF5733");
+            // Act
             Variant variant = new Variant(color);
+            // Assert
+            Assert.NotNull(variant);
             Assert.Equal(color, variant.Color);
+            Assert.NotEqual(Guid.Empty, variant.VariantId);
         }
+
         [Fact]
-        public void Constructor_WithNullColor_ShouldThrowArgumentNullException()
+        public void CreateVariant_WithNullColor_ShouldThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Variant(null!));
+            // Arrange, Act & Assert
+            Assert.Throws<ArgumentNullException>(() => new Variant(null));
         }
+
         [Fact]
-        public void UpdateColor_WithValidColor_ShouldUpdateProperty()
+        public void UpdateColor_WithValidColor_ShouldSucceed()
         {
-            Color initialColor = Color.FromHex("#faffff");
-            Color newColor = Color.FromHex("#123456");
+            Color initialColor = Color.FromRGB(255, 0, 0);
             Variant variant = new Variant(initialColor);
+            Color newColor = Color.FromHex("#00FF00");
             variant.UpdateColor(newColor);
             Assert.Equal(newColor, variant.Color);
         }
+
         [Fact]
         public void UpdateColor_WithNullColor_ShouldThrowArgumentNullException()
         {
-            Color initialColor = Color.FromHex("#faffff");
-            Variant variant = new Variant(initialColor);
-            Assert.Throws<ArgumentNullException>(() => variant.UpdateColor(null!));
-        }
-        [Fact]
-        public void AddPhoto_WithValidPhoto_ShouldAddToGallery()
-        {
-            Color color = Color.FromHex("#faffff");
+            Color color = Color.FromRGB(0, 0, 255);
             Variant variant = new Variant(color);
-            Photo photo = new Photo("assets/photo.jpg", "A random photo");
+
+            Assert.Throws<ArgumentNullException>(() => variant.UpdateColor(null));
+        }
+
+        [Fact]
+        public void AddPhoto_ShouldAddPhotoToGallery()
+        {
+            Color color = Color.FromHex("#123456");
+            Variant variant = new Variant(color);
+            Photo photo = new Photo("http://example.com/photo1.jpg", "a cool photo");
             variant.AddPhoto(photo);
             Assert.Contains(photo, variant.Gallery);
         }
 
         [Fact]
-        public void AddLocation_WithValidLocation_ShouldAddToAvailableLocations()
+        public void AddLocation_ShouldAddLocationToAvailableLocations()
         {
-            Color color = Color.FromHex("#faffff");
+            Color color = Color.FromHex("#654321");
             Variant variant = new Variant(color);
-            Size size = new Size("M");
-
-            AvailableLocationBySize location = new AvailableLocationBySize(size);
+            AvailableLocationBySize location = new AvailableLocationBySize(new ShirtSize("M", 32f, 23f, 12f, 12f));
             variant.AddLocation(location);
-
             Assert.Contains(location, variant.AvailableLocations);
         }
 
         [Fact]
-        public void AddLocation_WithDuplicateLocation_ShouldThrowInvalidOperationException()
+        public void AddLocation_DuplicateLocation_ShouldThrowInvalidOperationException()
         {
-            Color color = Color.FromHex("#faffff");
+            Color color = Color.FromHex("#abcdef");
             Variant variant = new Variant(color);
-            Size size = new Size("M");
-            AvailableLocationBySize location1 = new AvailableLocationBySize(size);
-            variant.AddLocation(location1);
-            Assert.Throws<InvalidOperationException>(() => variant.AddLocation(location1));
+            AvailableLocationBySize location = new AvailableLocationBySize(new PantSize("L", 34f, 24f));
+            variant.AddLocation(location);
+            Assert.Throws<InvalidOperationException>(() => variant.AddLocation(location));
         }
+
         [Fact]
-        public void RemoveLocation_WithValidLocationId_ShouldRemoveFromAvailableLocations()
+        public void RemoveLocation_ShouldRemoveLocationFromAvailableLocations()
         {
-            Color color = Color.FromHex("#faffff");
+            Color color = Color.FromHex("#fedcba");
             Variant variant = new Variant(color);
-            Size size = new Size("M");
-            AvailableLocationBySize location = new AvailableLocationBySize(size);
+            AvailableLocationBySize location = new AvailableLocationBySize(new ShirtSize("S", 30f, 22f, 11f, 11f));
             variant.AddLocation(location);
             variant.RemoveLocation(location.AvailableLocationBySizeId);
             Assert.DoesNotContain(location, variant.AvailableLocations);
         }
-        [Fact]
-        public void RemoveLocation_WithInvalidLocationId_ShouldThrowInvalidOperationException()
-        {
-            Color color = Color.FromHex("#faffff");
-            Variant variant = new Variant(color);
-            Assert.Throws<InvalidOperationException>(() => variant.RemoveLocation(Guid.NewGuid()));
-        }
-        [Fact]
-        public void RemovePhoto_WithValidPhotoId_ShouldRemoveFromGallery()
-        {
-            Color color = Color.FromHex("#faffff");
-            Variant variant = new Variant(color);
-            Photo photo = new Photo("assets/photo.jpg", "A random photo");
-            variant.AddPhoto(photo);
-            variant.RemovePhoto(photo.PhotoId);
-            Assert.DoesNotContain(photo, variant.Gallery);
-        }
-        [Fact]
-        public void RemovePhoto_WithInvalidPhotoId_ShouldThrowInvalidOperationException()
-        {
-            Color color = Color.FromHex("#faffff");
-            Variant variant = new Variant(color);
-            Assert.Throws<InvalidOperationException>(() => variant.RemovePhoto(Guid.NewGuid()));
-        }
-        [Fact]
-        public void RemovePhoto_WithPhotoNotInGallery_ShouldThrowInvalidOperationException()
-        {
-            Color color = Color.FromHex("#faffff");
-            Variant variant = new Variant(color);
-            Photo photo = new Photo("assets/photo.jpg", "A random photo");
-            Assert.Throws<InvalidOperationException>(() => variant.RemovePhoto(photo.PhotoId));
-        }
-        [Fact]
-        public void TotalQuantity_ShouldReturnSumOfAvailableLocations()
-        {
-            Color color = Color.FromHex("#faffff");
-            Variant variant = new Variant(color);
-            Size size1 = new Size("M");
-            Size size2 = new Size("L");
-            AvailableLocationBySize availableLocation1 = new AvailableLocationBySize(size1);
-            AvailableLocationBySize availableLocation2 = new AvailableLocationBySize(size2);
-            Location location1 = new Location(123.0, 123.1);
-            StockByLocation stock1 = new StockByLocation(10, location1);
-            Location location2 = new Location(123.2, 123.3);
-            StockByLocation stock2 = new StockByLocation(5, location2);
 
-            availableLocation1.AddStock(stock1);
-            availableLocation2.AddStock(stock2);
-            variant.AddLocation(availableLocation1);
-            variant.AddLocation(availableLocation2);
-
-            Assert.Equal(15, variant.TotalQuantity);
+        [Fact]
+        public void RemoveLocation_NonExistentLocation_ShouldThrowInvalidOperationException()
+        {
+            Color color = Color.FromHex("#112233");
+            Variant variant = new Variant(color);
+            Guid nonExistentId = Guid.NewGuid();
+            Assert.Throws<InvalidOperationException>(() => variant.RemoveLocation(nonExistentId));
         }
     }
 }

@@ -12,7 +12,8 @@
         public Guid SizeId { get; private set; }
         private readonly HashSet<StockByLocation> _availableLocationsOfGivenSize = new();
         public IReadOnlyCollection<StockByLocation> AvailableLocationsOfGivenSize => _availableLocationsOfGivenSize;
-        public int TotalStockOfSize => _availableLocationsOfGivenSize.Sum(s => s.Stock);
+
+        public int GetTotalStockOfSize() => _availableLocationsOfGivenSize.Sum(s => s.Stock);
 
         protected AvailableLocationBySize() { }
 
@@ -34,16 +35,6 @@
             if (_availableLocationsOfGivenSize.Contains(stock))
                 throw new InvalidOperationException("Stock already exists in the available locations for this size");
             _availableLocationsOfGivenSize.Add(stock);
-        }
-
-        public void AddStockRange(IEnumerable<StockByLocation> stocks)
-        {
-            if (stocks == null || !stocks.Any())
-                throw new ArgumentNullException(nameof(stocks), "Stocks cannot be null or empty");
-            foreach (var stock in stocks)
-            {
-                AddStock(stock);
-            }
         }
 
         public void RemoveStock(Guid stockId)
