@@ -11,6 +11,16 @@ namespace ClothingStore.Persistence.Repositories
         {
         }
 
+        public async Task<bool> UpdateSafeAsync(Item entity, CancellationToken ct = default)
+        {
+            var exists = await _context.Items.AnyAsync(x => x.ItemId == entity.ItemId, ct);
+            if (!exists) return false;
+
+            _context.Items.Update(entity);
+            return true;
+        }
+
+
         public async Task<IReadOnlyList<Item>> GetHotItemsAsync(int count, CancellationToken ct)
         {
            return await _context.Items

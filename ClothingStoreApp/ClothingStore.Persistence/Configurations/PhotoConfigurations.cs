@@ -12,8 +12,7 @@ namespace ClothingStore.Persistence.Configurations
             photoBuilder.HasKey(photo => photo.PhotoId)
                 .HasName("PK_Photos");
             photoBuilder.Property(photo => photo.UploadedAt)
-                .HasColumnType("datetimeoffset(0)")
-                .HasDefaultValueSql("SYSUTCDATETIME()");
+                .IsRequired();
 
             photoBuilder.HasOne(photo => photo.Variant)
                 .WithMany(variant => variant.Gallery)

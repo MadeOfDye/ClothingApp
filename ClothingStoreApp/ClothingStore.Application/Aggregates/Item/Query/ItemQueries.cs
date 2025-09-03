@@ -2,7 +2,7 @@
 using ClothingStore.Application.DTOs;
 using MediatR;
 
-namespace ClothingStore.Application.Queries.Item
+namespace ClothingStore.Application.Aggregates.Item.Query
 {
     public class GetAllItemsQuery: IRequest<CollectionResponse<ItemDto>>
     {

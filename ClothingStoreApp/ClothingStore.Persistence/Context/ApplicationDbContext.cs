@@ -32,8 +32,7 @@ namespace ClothingStore.Persistence.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-ECILTJV;Initial Catalog=Clothing_Database_Backup;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False")
-                              .EnableSensitiveDataLogging();
+                throw new InvalidOperationException("DbContext was not configured. Use AddDbContext in DI or pass options to the ctor.");
             }
         }
 
