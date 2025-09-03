@@ -13,8 +13,7 @@ namespace ClothingStore.Persistence.Configurations
             builder.Property(cart => cart.UserId)
                 .IsRequired();
             builder.Property(cart => cart.CreatedAt)
-                .HasColumnType("datetimeoffset(0)")
-                .HasDefaultValueSql("SYSUTCDATETIME()");
+                .IsRequired();
             //builder.HasOne(cart => cart.User)
             //    .WithMany(user => user.ShoppingCarts)
             //    .HasForeignKey(cart => cart.UserId)

@@ -1,4 +1,4 @@
-﻿using ClothingStore.Application.Queries.Item;
+﻿using ClothingStore.Application.Aggregates.Item.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

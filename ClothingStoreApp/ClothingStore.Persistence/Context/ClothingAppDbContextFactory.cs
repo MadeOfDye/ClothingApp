@@ -9,13 +9,17 @@ namespace ClothingStore.Persistence.Context
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
-            var configurationBuilder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+
+            var configurationBuilder = new ConfigurationBuilder();
             IConfigurationRoot configuration = configurationBuilder
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../ClothingStore.API"))
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile("appsettings.Development.json", optional: true)
                 .Build();
-            Console.WriteLine(Directory.GetCurrentDirectory());
+
+            var cs = configuration.GetConnectionString(
+                env == "Development" ? "DeveloperConnection" : "DefaultConnection");
 
             string connectionString = configuration.GetConnectionString("DefaultConnection");
 

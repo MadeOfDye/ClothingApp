@@ -5,7 +5,7 @@ using MediatR;
 using ClothingStore.Application.DTOs.Assemblers;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClothingStore.Application.Queries.Item
+namespace ClothingStore.Application.Aggregates.Item.Query
 {
     public class ItemQueryHandler : IRequestHandler<GetAllItemsQuery, CollectionResponse<ItemDto>>,
                                                         IRequestHandler<GetItemByIdQuery, ItemDto>,
