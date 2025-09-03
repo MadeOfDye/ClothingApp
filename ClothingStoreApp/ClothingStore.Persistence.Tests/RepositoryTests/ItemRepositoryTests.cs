@@ -292,17 +292,48 @@ namespace ClothingStore.Persistence.Tests.RepositoryTests
         }
 
         [Fact]
-        public async Task Update_NonExistingEntity_ShouldDoNothing()
+        public async Task Update_NonExistingEntity_ShouldThrowConcurrencyException()
         {
             using var factory = new ContextFactory();
             var context = factory.Context;
             var repository = new ItemRepository(context);
-            Item item = new Item("T-Shirt", "A cool t-shirt", 19.99m, "BrandA", "SummerCollection", "Wash With Warm Water");
+
+            var item = new Item("T-Shirt", "A cool t-shirt", 19.99m, "BrandA", "SummerCollection", "Wash With Warm Water");
             item.UpdateName("Updated T-Shirt");
+
             context.Items.Update(item);
+
+            await Assert.ThrowsAsync<DbUpdateConcurrencyException>(() => repository.SaveChangesAsync());
+        }
+
+        [Fact]
+        public async Task UpdateSafeAsync_ExistingEntity_ShouldReturnTrueAndUpdateEntity()
+        {
+            using var factory = new ContextFactory();
+            var context = factory.Context;
+            var repository = new ItemRepository(context);
+            var item = new Item("T-Shirt", "A cool t-shirt", 19.99m, "BrandA", "SummerCollection", "Wash With Warm Water");
+            await repository.AddAsync(item);
             await repository.SaveChangesAsync();
-            var result = await repository.GetByIdAsync(item.ItemId);
-            Assert.Null(result);
+            item.UpdateName("Updated T-Shirt");
+            var result = await repository.UpdateSafeAsync(item);
+            await repository.SaveChangesAsync();
+            var updatedItem = await repository.GetByIdAsync(item.ItemId);
+            Assert.True(result);
+            Assert.NotNull(updatedItem);
+            Assert.Equal("Updated T-Shirt", updatedItem!.Name);
+        }
+
+        [Fact]
+        public async Task UpdateSafeAsync_NonExistingEntity_ShouldReturnFalse()
+        {
+            using var factory = new ContextFactory();
+            var context = factory.Context;
+            var repository = new ItemRepository(context);
+            var item = new Item("T-Shirt", "A cool t-shirt", 19.99m, "BrandA", "SummerCollection", "Wash With Warm Water");
+            item.UpdateName("Updated T-Shirt");
+            var result = await repository.UpdateSafeAsync(item);
+            Assert.False(result);
         }
     }
 }
