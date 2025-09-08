@@ -70,6 +70,7 @@ namespace ClothingStore.Persistence.Configurations
             builder.Property(s => s.Bust).HasColumnName("Dress_Bust");
             builder.Property(s => s.Waist).HasColumnName("Dress_Waist");
             builder.Property(s => s.Hip).HasColumnName("Dress_Hip");
+            builder.Property(s => s.Length).HasColumnName("Dress_Length");
         }
     }
 }

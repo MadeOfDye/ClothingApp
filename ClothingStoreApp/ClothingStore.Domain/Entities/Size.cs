@@ -91,14 +91,16 @@
         public float Bust { get; private set; }
         public float Waist { get; private set; }
         public float Hip { get; private set; }
+        public float Length { get; private set; }
         protected DressSize() { }
-        public DressSize(string letter, float bust, float waist, float hip) : base(letter)
+        public DressSize(string letter, float bust, float waist, float hip, float length) : base(letter)
         {
             if (bust < 0 || waist < 0 || hip < 0)
                 throw new ArgumentException("Size dimensions must be non-negative");
             Bust = bust;
             Waist = waist;
             Hip = hip;
+            Length = length;
         }
     }
 

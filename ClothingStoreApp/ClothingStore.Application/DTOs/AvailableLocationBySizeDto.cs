@@ -4,7 +4,7 @@
     {
         public Guid AvailableLocationBySizeId { get; set; }
         public Guid VariantId { get; set; }
-        public Guid SizeId { get; set; }
+        public SizeDto SizeId { get; set; }
         public IEnumerable<StockByLocationDto> AvailableLocationsOfGivenSize { get; set; } = Array.Empty<StockByLocationDto>();
     }
 }
