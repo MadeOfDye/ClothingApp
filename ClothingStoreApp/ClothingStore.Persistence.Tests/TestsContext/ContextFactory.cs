@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClothingStore.Persistence.Tests.TestsContext
 {
-    public class ContextFactory: IDisposable
+    public class ContextFactory : IDisposable
     {
         private readonly SqliteConnection _connection;
         public ApplicationDbContext Context { get; }

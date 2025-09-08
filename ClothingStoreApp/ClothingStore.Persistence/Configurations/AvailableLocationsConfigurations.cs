@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace ClothingStore.Persistence.Configurations
 {
-    public class AvailableLocationsConfigurations: IEntityTypeConfiguration<AvailableLocationBySize>
+    public class AvailableLocationsConfigurations : IEntityTypeConfiguration<AvailableLocationBySize>
     {
         public void Configure(EntityTypeBuilder<AvailableLocationBySize> builder)
         {

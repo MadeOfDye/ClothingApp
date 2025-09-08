@@ -1,7 +1,7 @@
 ﻿using ClothingStore.Application.Behaviours;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation;
 
 namespace ClothingStore.Application.DependencyInjection
 {

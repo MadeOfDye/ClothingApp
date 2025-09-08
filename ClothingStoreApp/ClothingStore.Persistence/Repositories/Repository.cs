@@ -15,7 +15,7 @@ namespace ClothingStore.Persistence.Repositories
 
         public async Task<T?> AddAsync(T entity, CancellationToken ct = default)
         {
-            if(entity == null)
+            if (entity == null)
                 throw new ArgumentNullException(nameof(entity) + " Should not be null.");
             await _context.Set<T>().AddAsync(entity, ct);
 
@@ -45,7 +45,7 @@ namespace ClothingStore.Persistence.Repositories
 
         public async Task<T?> GetByIdAsync(Guid Id, CancellationToken ct = default)
         {
-           return await _context.Set<T>().FindAsync(Id, ct);
+            return await _context.Set<T>().FindAsync(Id, ct);
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync(CancellationToken ct = default)
@@ -55,12 +55,12 @@ namespace ClothingStore.Persistence.Repositories
 
         public async Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>> filter, CancellationToken ct = default)
         {
-           return await _context.Set<T>().Where(filter).ToListAsync(ct);
+            return await _context.Set<T>().Where(filter).ToListAsync(ct);
         }
 
         public IQueryable<T> Query(Expression<Func<T, bool>>? filter = null)
         {
-            return filter==null ? _context.Set<T>().AsQueryable().AsNoTracking() : _context.Set<T>().Where(filter).AsQueryable().AsNoTracking();
+            return filter == null ? _context.Set<T>().AsQueryable().AsNoTracking() : _context.Set<T>().Where(filter).AsQueryable().AsNoTracking();
         }
 
         public void Update(T entity)
@@ -68,7 +68,7 @@ namespace ClothingStore.Persistence.Repositories
             _context.Set<T>().Update(entity);
         }
 
-        public  Task<int> SaveChangesAsync(CancellationToken ct = default)
+        public Task<int> SaveChangesAsync(CancellationToken ct = default)
         {
             return _context.SaveChangesAsync(ct);
         }

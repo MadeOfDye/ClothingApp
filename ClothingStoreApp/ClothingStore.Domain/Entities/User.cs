@@ -8,7 +8,8 @@
         public ShoppingCart ShoppingCart { get; private set; }
 
         protected User() { }
-         public User(string username) { 
+        public User(string username)
+        {
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentException("Username cannot be null or empty", nameof(username));
             UserId = Guid.NewGuid();
@@ -17,7 +18,7 @@
         }
         public void AddToCart(Item item)
         {
-            if(ShoppingCart == null)
+            if (ShoppingCart == null)
                 throw new InvalidOperationException("User does not have a shopping cart.");
             if (item == null) throw new ArgumentNullException(nameof(Item), "Item cannot be null");
             ShoppingCart.AddItem(item, 1);
@@ -25,7 +26,7 @@
 
         public void RemoveFromCart(Guid itemId)
         {
-            if(itemId == Guid.Empty)
+            if (itemId == Guid.Empty)
                 throw new ArgumentNullException(nameof(itemId), "Item ID cannot be null or empty");
             Item item = ShoppingCart.Items.FirstOrDefault(i => i.Item.ItemId == itemId)?.Item ?? throw new InvalidOperationException("Item not found in the shopping cart.");
             //if (item == null)

@@ -1,20 +1,19 @@
 ﻿using ClothingStore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using ClothingStore.Domain.Enumerators;
 namespace ClothingStore.Persistence.Context
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Variant> Variants { get; set; }
-        public DbSet<AvailableLocationBySize> AvailableLocations { get; set; }
-        public DbSet<StockByLocation> StocksByLocations { get; set; }
-        public DbSet<Photo> Photos { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Variant> Variants { get; set; }
+        public virtual DbSet<AvailableLocationBySize> AvailableLocations { get; set; }
+        public virtual DbSet<StockByLocation> StocksByLocations { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<CartItem> CartItems { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

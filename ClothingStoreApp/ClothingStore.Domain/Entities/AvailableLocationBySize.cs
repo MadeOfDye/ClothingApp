@@ -6,7 +6,7 @@
         public Guid VariantId { get; private set; }
 
         //Navigation property for EFCore
-        public Variant Variant { get; private set; }
+        public virtual Variant Variant { get; private set; }
 
         public Size Size { get; private set; }
         public Guid SizeId { get; private set; }

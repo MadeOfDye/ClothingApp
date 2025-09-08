@@ -1,5 +1,4 @@
-﻿using ClothingStore.Domain.Entities;
-using ClothingStore.Domain.Interfaces;
+﻿using ClothingStore.Domain.Interfaces;
 using ClothingStore.Persistence.Context;
 using ClothingStore.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;

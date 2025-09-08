@@ -42,7 +42,7 @@
             Price = (price >= 0) ? price : throw new ArgumentException("Price must be a positive integer value");
             Discount = 0;
             Brand = !string.IsNullOrWhiteSpace(brand) ? brand : throw new ArgumentException("Must specify the brand of clothing");
-            MaterialDistribution =String.Empty;
+            MaterialDistribution = String.Empty;
             LastChance = false;
             if (string.IsNullOrWhiteSpace(careGuide))
                 throw new ArgumentException("Care guide cannot be null or empty", nameof(careGuide));

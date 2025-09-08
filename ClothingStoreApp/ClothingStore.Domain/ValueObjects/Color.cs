@@ -6,10 +6,10 @@ namespace ClothingStore.Domain.ValueObjects
     public class Color
     {
         private static readonly Regex HexRegex = new(@"^[0-9A-Fa-f]{6}$", RegexOptions.Compiled);
-        public string Hexadecimal {  get;}
-        public byte Red { get;}
-        public byte Green { get;}
-        public byte Blue { get;}
+        public string Hexadecimal { get; }
+        public byte Red { get; }
+        public byte Green { get; }
+        public byte Blue { get; }
 
         private Color(string hexadecimal, byte red, byte green, byte blue)
         {
@@ -23,7 +23,7 @@ namespace ClothingStore.Domain.ValueObjects
         {
             if (hexadecimal is null)
                 throw new ArgumentNullException(nameof(hexadecimal));
-            
+
             var sanitized = hexadecimal.TrimStart('#');
             if (!HexRegex.IsMatch(sanitized))
                 throw new ArgumentException("Hexadecimal must be exactly 6 hex digits.", nameof(hexadecimal));
@@ -42,7 +42,7 @@ namespace ClothingStore.Domain.ValueObjects
             return new Color(hex, red, green, blue);
         }
 
-        public override bool Equals(object? obj) => 
+        public override bool Equals(object? obj) =>
             obj is Color other &&
             Hexadecimal == other.Hexadecimal &&
             Red == other.Red &&

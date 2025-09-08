@@ -6,13 +6,13 @@
     {
         public Guid VariantId { get; private set; }
         public Guid ItemId { get; private set; }
-        public Item Item { get; private set; }
+        public virtual Item Item { get; private set; }
         public Color Color { get; private set; }
         private readonly List<AvailableLocationBySize> _availableLocations = new();
         public IReadOnlyCollection<AvailableLocationBySize> AvailableLocations => _availableLocations;
         private readonly List<Photo> _gallery = new();
         public IReadOnlyCollection<Photo> Gallery => _gallery;
-        
+
         public int GetTotalQuantity() => _availableLocations.Sum(a => a.GetTotalStockOfSize());
 
         protected Variant() { }
@@ -58,7 +58,7 @@
         {
             if (photoId == Guid.Empty)
                 throw new ArgumentNullException(nameof(photoId), "Photo cannot be null");
-           Photo photo = _gallery.FirstOrDefault(p => p.PhotoId == photoId) ?? throw new InvalidOperationException("Photo not found");
+            Photo photo = _gallery.FirstOrDefault(p => p.PhotoId == photoId) ?? throw new InvalidOperationException("Photo not found");
             if (photo == null)
                 throw new InvalidOperationException("Photo not found");
             _gallery.Remove(photo);

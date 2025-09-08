@@ -4,7 +4,7 @@
     {
         public Guid CartItemId { get; private set; }
         public Guid ShoppingCartId { get; private set; }
-        public ShoppingCart ShoppingCart { get; private set; }
+        public virtual ShoppingCart ShoppingCart { get; private set; }
         public Guid ItemId { get; private set; }
         public Item Item { get; private set; }
         public int Quantity { get; private set; }

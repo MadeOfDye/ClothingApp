@@ -2,11 +2,11 @@
 
 namespace ClothingStore.Domain.Entities
 {
-    public class ShoppingCart: IAggregateRoot
+    public class ShoppingCart : IAggregateRoot
     {
         public Guid ShoppingCartId { get; private set; }
         public Guid UserId { get; private set; }
-        public User User { get; private set; }
+        public virtual User User { get; private set; }
         private HashSet<CartItem> _items = new();
         public IReadOnlyCollection<CartItem> Items => _items;
         public DateTimeOffset CreatedAt { get; private set; }
@@ -38,7 +38,8 @@ namespace ClothingStore.Domain.Entities
                 _items.Add(new CartItem(item, quantity));
             }
         }
-        public void RemoveItem(Item item) {
+        public void RemoveItem(Item item)
+        {
             if (item == null)
                 throw new ArgumentNullException(nameof(item), "Item cannot be null");
             var existingItem = _items.FirstOrDefault(i => i.Item.ItemId == item.ItemId);

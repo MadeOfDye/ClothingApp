@@ -1,15 +1,12 @@
-﻿namespace ClothingStore.Application.DTOs.Assemblers
-{
-    using ClothingStore.Application.DTOs;
-    using ClothingStore.Domain.Entities;
+﻿using ClothingStore.Domain.Entities;
+using System.Linq.Expressions;
 
-    public static class ItemAssembler
+namespace ClothingStore.Application.DTOs.Mappers
+{
+    public static class ItemProjections
     {
-        public static ItemDto ToDTO(this Item item)
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item), "Item cannot be null");
-            return new ItemDto
+        public static readonly Expression<Func<Item, ItemDto>> ItemToDto =
+            item => new ItemDto
             {
                 ItemId = item.ItemId,
                 Name = item.Name,
@@ -68,20 +65,6 @@
                     Ordinal = t.Ordinal
                 }).ToList()
             };
-        }
-
-        public static Item ToEntity(ItemDto itemDTO)
-        {
-            if (itemDTO == null)
-                throw new ArgumentNullException(nameof(itemDTO), "ItemDTO cannot be null");
-            return new Item(
-                itemDTO.Name,
-                itemDTO.Description,
-                itemDTO.Price,
-                itemDTO.Brand,
-                itemDTO.Collection,
-                itemDTO.CareGuide
-            );
-        }
     }
+
 }

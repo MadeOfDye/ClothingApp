@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ClothingStore.Persistence.Configurations
 {
-    public class CartItemConfigurations: IEntityTypeConfiguration<CartItem>
+    public class CartItemConfigurations : IEntityTypeConfiguration<CartItem>
     {
         public void Configure(EntityTypeBuilder<CartItem> builder)
         {

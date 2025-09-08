@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClothingStore.Domain.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClothingStore.Persistence.Tests", "ClothingStore.Persistence.Tests\ClothingStore.Persistence.Tests.csproj", "{E0721250-A2BA-4031-BA35-4A209B5040AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClothingStore.Application.Tests", "ClothingStore.Application.Tests\ClothingStore.Application.Tests.csproj", "{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,18 @@ Global
 		{E0721250-A2BA-4031-BA35-4A209B5040AC}.Release|x64.Build.0 = Release|Any CPU
 		{E0721250-A2BA-4031-BA35-4A209B5040AC}.Release|x86.ActiveCfg = Release|Any CPU
 		{E0721250-A2BA-4031-BA35-4A209B5040AC}.Release|x86.Build.0 = Release|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Debug|x64.Build.0 = Debug|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Debug|x86.Build.0 = Debug|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Release|x64.ActiveCfg = Release|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Release|x64.Build.0 = Release|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Release|x86.ActiveCfg = Release|Any CPU
+		{4FA50D3B-AC73-4520-9F2E-CA6A6E41BB74}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

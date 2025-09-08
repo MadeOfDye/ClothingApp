@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ClothingStore.Persistence.Configurations
 {
-    public class PhotoConfigurations: IEntityTypeConfiguration<Photo>
+    public class PhotoConfigurations : IEntityTypeConfiguration<Photo>
     {
         public void Configure(EntityTypeBuilder<Photo> photoBuilder)
         {

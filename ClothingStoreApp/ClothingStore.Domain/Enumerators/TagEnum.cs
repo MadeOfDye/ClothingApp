@@ -4,7 +4,7 @@
     {
         Sweater,
         Shirt,
-         Dress,
+        Dress,
         Skirt,
         Poncho,
         Dress_Shoes,
