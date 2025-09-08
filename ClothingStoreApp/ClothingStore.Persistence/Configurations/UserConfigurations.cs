@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ClothingStore.Persistence.Configurations
 {
-    public class UserConfigurations: IEntityTypeConfiguration<User>
+    public class UserConfigurations : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {

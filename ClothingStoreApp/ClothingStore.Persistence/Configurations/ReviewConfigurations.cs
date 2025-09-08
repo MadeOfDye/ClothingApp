@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ClothingStore.Persistence.Configurations
 {
-    public class ReviewConfigurations: IEntityTypeConfiguration<Review>
+    public class ReviewConfigurations : IEntityTypeConfiguration<Review>
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
             builder.ToTable("Reviews");
             builder.HasKey(review => review.ReviewId)
                 .HasName("PK_Reviews");
-            
+
             builder.HasOne(review => review.Item)
                 .WithMany(item => item.Reviews)
                 .HasForeignKey(review => review.ItemId)
@@ -25,6 +25,6 @@ namespace ClothingStore.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(1000);
         }
-    }   
-    
+    }
+
 }

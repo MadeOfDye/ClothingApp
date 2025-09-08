@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace ClothingStore.Persistence.Context
 {
-    public class ClothingAppDbContextFactory: IDesignTimeDbContextFactory<ApplicationDbContext>
+    public class ClothingAppDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {

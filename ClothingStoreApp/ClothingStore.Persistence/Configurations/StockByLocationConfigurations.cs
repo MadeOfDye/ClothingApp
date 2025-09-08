@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace ClothingStore.Persistence.Configurations
 {
-    public class StockByLocationConfigurations: IEntityTypeConfiguration<StockByLocation>
+    public class StockByLocationConfigurations : IEntityTypeConfiguration<StockByLocation>
     {
         public void Configure(EntityTypeBuilder<StockByLocation> builder)
         {
@@ -14,7 +14,8 @@ namespace ClothingStore.Persistence.Configurations
                 .IsRequired()
                 .HasColumnType("int")
                 .HasDefaultValue(0);
-            builder.OwnsOne(stock => stock.Location, locationBuilder => {
+            builder.OwnsOne(stock => stock.Location, locationBuilder =>
+            {
                 locationBuilder.Property(s => s.Latitude)
                     .HasColumnName("Latitude")
                     .IsRequired();

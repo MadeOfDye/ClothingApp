@@ -3,8 +3,8 @@
     public class Photo
     {
         public Guid PhotoId { get; private set; }
-        public Guid VariantId { get; private set; } 
-        public Variant Variant { get; private set; }
+        public Guid VariantId { get; private set; }
+        public virtual Variant Variant { get; private set; }
         public string Url { get; private set; }
         public string? Description { get; private set; }
         public DateTimeOffset UploadedAt { get; private set; }

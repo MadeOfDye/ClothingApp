@@ -23,11 +23,11 @@ namespace ClothingStore.Persistence.Repositories
 
         public async Task<IReadOnlyList<Item>> GetHotItemsAsync(int count, CancellationToken ct)
         {
-           return await _context.Items
-                .Where(item => item.Hot)
-                .OrderByDescending(i => i.CreatedAt)
-                .Take(count)
-                .ToListAsync(ct);
+            return await _context.Items
+                 .Where(item => item.Hot)
+                 .OrderByDescending(i => i.CreatedAt)
+                 .Take(count)
+                 .ToListAsync(ct);
         }
 
         //public async Task<IReadOnlyList<Item>> GetLastChanceItemsAsync(int count, CancellationToken ct)

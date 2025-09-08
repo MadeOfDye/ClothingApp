@@ -6,7 +6,7 @@ namespace ClothingStore.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ItemController: ControllerBase
+    public class ItemController : ControllerBase
     {
         private readonly IMediator _mediator;
         public ItemController(IMediator mediator)
@@ -18,6 +18,18 @@ namespace ClothingStore.API.Controllers
         public async Task<IActionResult> GetAllItems([FromQuery] GetAllItemsQuery query)
         {
             return Ok(await _mediator.Send(query));
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> GetItemById([FromRoute] GetItemByIdQuery query)
+        {
+            var item = await _mediator.Send(query);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
         }
     }
 }

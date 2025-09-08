@@ -6,8 +6,8 @@
     {
         public Guid StockByLocationId { get; private set; }
         public Guid LocationBySizeId { get; private set; }
-        public AvailableLocationBySize LocationBySize { get; private set; }
-        public int Stock {  get; private set; }
+        public virtual AvailableLocationBySize LocationBySize { get; private set; }
+        public int Stock { get; private set; }
         public Location? Location { get; private set; }
 
         protected StockByLocation() { }
@@ -22,7 +22,7 @@
 
         public void SetLocation(Location location)
         {
-             Location = location ?? throw new ArgumentNullException(nameof(location), "Location cannot be null");
+            Location = location ?? throw new ArgumentNullException(nameof(location), "Location cannot be null");
         }
 
         public void UpdateStock(int quantity)

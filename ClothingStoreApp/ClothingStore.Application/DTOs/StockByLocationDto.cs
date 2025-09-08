@@ -1,6 +1,4 @@
-﻿using ClothingStore.Domain.ValueObjects;
-
-namespace ClothingStore.Application.DTOs
+﻿namespace ClothingStore.Application.DTOs
 {
     public record class StockByLocationDto
     {

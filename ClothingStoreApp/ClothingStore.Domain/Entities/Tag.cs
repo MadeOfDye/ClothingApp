@@ -4,7 +4,7 @@
     {
         public Guid TagId { get; private set; }
         public Guid ItemId { get; private set; } // Foreign key for EF Core
-        public Item Item { get; private set; } // Navigation for EF Core
+        public virtual Item Item { get; private set; } // Navigation for EF Core
 
         public string Name { get; private set; }
         public int Ordinal { get; private set; }

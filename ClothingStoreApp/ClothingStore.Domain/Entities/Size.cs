@@ -22,7 +22,7 @@
         public float NeckCircumference { get; private set; }
 
         protected ShirtSize() { }
-        public ShirtSize(string letter, float length, float shoulderWidth, float chestWidth, float sleeveLength): base(letter)
+        public ShirtSize(string letter, float length, float shoulderWidth, float chestWidth, float sleeveLength) : base(letter)
         {
             if (length < 0 || shoulderWidth < 0 || chestWidth < 0 || sleeveLength < 0)
                 throw new ArgumentException("Size dimensions must be non-negative");
@@ -86,7 +86,7 @@
         }
     }
 
-    public class DressSize: Size
+    public class DressSize : Size
     {
         public float Bust { get; private set; }
         public float Waist { get; private set; }

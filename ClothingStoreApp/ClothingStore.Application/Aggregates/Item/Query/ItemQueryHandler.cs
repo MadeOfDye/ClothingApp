@@ -1,8 +1,8 @@
 ﻿using ClothingStore.Application.Common;
 using ClothingStore.Application.DTOs;
+using ClothingStore.Application.DTOs.Mappers;
 using ClothingStore.Domain.Interfaces;
 using MediatR;
-using ClothingStore.Application.DTOs.Assemblers;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClothingStore.Application.Aggregates.Item.Query
@@ -17,7 +17,7 @@ namespace ClothingStore.Application.Aggregates.Item.Query
             _itemRepository = itemRepository;
         }
 
-        public async Task<CollectionResponse<ItemDto>> Handle(GetAllItemsSortedAndPaginatedQuery query, CancellationToken token)
+        public async Task<CollectionResponse<ItemDto>> Handle(GetAllItemsSortedAndPaginatedQuery query, CancellationToken token = default)
         {
             var baseQuery = _itemRepository.Query();
             var count = await baseQuery.CountAsync(token);
@@ -29,7 +29,7 @@ namespace ClothingStore.Application.Aggregates.Item.Query
             return new CollectionResponse<ItemDto> { Records = items, TotalNumberOfRecords = count };
         }
 
-        public async Task<CollectionResponse<ItemDto>> Handle(GetAllItemsQuery query, CancellationToken token)
+        public async Task<CollectionResponse<ItemDto>> Handle(GetAllItemsQuery query, CancellationToken token = default)
         {
             var baseQuery = _itemRepository.Query().AsNoTracking();
             var count = await baseQuery.CountAsync(token);
@@ -40,7 +40,7 @@ namespace ClothingStore.Application.Aggregates.Item.Query
             return new CollectionResponse<ItemDto> { Records = items, TotalNumberOfRecords = count };
         }
 
-        public async Task<ItemDto> Handle(GetItemByIdQuery query, CancellationToken token)
+        public async Task<ItemDto> Handle(GetItemByIdQuery query, CancellationToken token = default)
         {
             var dto = await _itemRepository.Query(x => x.ItemId == query.Id)
                 .AsNoTracking()

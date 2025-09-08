@@ -374,4 +374,4 @@ namespace ClothingStore.Domain.Tests.EntityTests
         }
     }
 
- }
+}

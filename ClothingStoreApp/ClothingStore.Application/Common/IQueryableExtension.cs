@@ -29,8 +29,8 @@ namespace ClothingStore.Application.Common
 
         public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, int pageNumber, int pageSize)
         {
-            if(pageNumber < 1) pageNumber = 1;
-            if(pageSize < 1) pageSize = 10;
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
             if (pageNumber < 1 || pageSize < 1)
                 throw new ArgumentOutOfRangeException("Page number and size must be greater than zero.");
             return query.Skip((pageNumber - 1) * pageSize).Take(pageSize);

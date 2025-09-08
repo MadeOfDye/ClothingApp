@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ClothingStore.Domain.Entities;
+﻿using ClothingStore.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ClothingStore.Persistence.Configurations
 {
-    public class VariantConfigurations: IEntityTypeConfiguration<Variant>
+    public class VariantConfigurations : IEntityTypeConfiguration<Variant>
     {
         public void Configure(EntityTypeBuilder<Variant> builder)
         {
@@ -42,6 +42,6 @@ namespace ClothingStore.Persistence.Configurations
                 .HasForeignKey(photo => photo.VariantId)
                 .HasConstraintName("FK_Variants_Photos")
                 .OnDelete(DeleteBehavior.Cascade);
-        }   
+        }
     }
 }
