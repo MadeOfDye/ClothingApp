@@ -5,6 +5,5 @@
         public Guid TagId { get; set; }
         public Guid ItemId { get; set; }
         public string Name { get; set; }
-        public int Ordinal { get; set; }
     }
 }

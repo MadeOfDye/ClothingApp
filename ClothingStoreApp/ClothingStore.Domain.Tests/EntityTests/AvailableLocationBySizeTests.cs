@@ -42,7 +42,7 @@ namespace ClothingStore.Domain.Tests.EntityTests
         [Fact]
         public void AddStock_NullStock_ShouldThrowArgumentNullException()
         {
-            Size size = new DressSize("L", 30f, 12f, 32f);
+            Size size = new DressSize("L", 30f, 12f, 32f, 32f);
             AvailableLocationBySize availableLocationBySize = new AvailableLocationBySize(size);
 
             Assert.Throws<ArgumentNullException>(() => availableLocationBySize.AddStock(null));
@@ -51,7 +51,7 @@ namespace ClothingStore.Domain.Tests.EntityTests
         [Fact]
         public void AddStock_DuplicateStock_ShouldThrowInvalidOperationException()
         {
-            Size size = new DressSize("M", 28f, 10f, 30f);
+            Size size = new DressSize("M", 28f, 10f, 30f, 30f);
             AvailableLocationBySize availableLocationBySize = new AvailableLocationBySize(size);
             Location location = new Location(156, 156, "Warehouse B");
             StockByLocation stock = new StockByLocation(5, location);

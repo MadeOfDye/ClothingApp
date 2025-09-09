@@ -35,7 +35,7 @@ namespace ClothingStore.Application.DTOs.Mappers
                     {
                         AvailableLocationBySizeId = al.AvailableLocationBySizeId,
                         VariantId = al.VariantId,
-                        SizeId = al.SizeId,
+                        SizeId = SizeProjections.toDto(al.Size),
                         AvailableLocationsOfGivenSize = al.AvailableLocationsOfGivenSize.Select(s => new StockByLocationDto
                         {
                             StockByLocationId = s.StockByLocationId,
