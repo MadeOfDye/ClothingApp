@@ -8,7 +8,7 @@ namespace ClothingStore.Application.DTOs.Mappers
         {
             ShirtSize shirtSize => new ShirtSizeDto
             {
-                SizeID = shirtSize.SizeId,
+                SizeId = shirtSize.SizeId,
                 Letter = shirtSize.Letter,
                 Length = shirtSize.Length,
                 ShoulderWidth = shirtSize.ShoulderWidth,
@@ -19,7 +19,7 @@ namespace ClothingStore.Application.DTOs.Mappers
             },
             PantSize pantSize => new PantSizeDto
             {
-                SizeID = pantSize.SizeId,
+                SizeId = pantSize.SizeId,
                 Letter = pantSize.Letter,
                 Waist = pantSize.Waist,
                 Inseam = pantSize.Inseam,
@@ -27,7 +27,7 @@ namespace ClothingStore.Application.DTOs.Mappers
             },
             ShoeSize shoeSize => new ShoeSizeDto
             {
-                SizeID = shoeSize.SizeId,
+                SizeId = shoeSize.SizeId,
                 Letter = shoeSize.Letter,
                 Length = shoeSize.Length,
                 Width = shoeSize.Width,
@@ -35,13 +35,13 @@ namespace ClothingStore.Application.DTOs.Mappers
             },
             HatSize hatSize => new HatSizeDto
             {
-                SizeID = hatSize.SizeId,
+                SizeId = hatSize.SizeId,
                 Letter = hatSize.Letter,
                 Circumference = hatSize.Circumference
             },
             DressSize dressSize => new DressSizeDto
             {
-                SizeID = dressSize.SizeId,
+                SizeId = dressSize.SizeId,
                 Letter = dressSize.Letter,
                 Bust = dressSize.Bust,
                 Waist = dressSize.Waist,

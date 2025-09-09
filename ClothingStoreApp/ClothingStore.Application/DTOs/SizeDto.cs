@@ -2,7 +2,7 @@
 {
     public record class SizeDto
     {
-        public Guid SizeID { get; set; }
+        public Guid SizeId { get; set; }
         public string Letter { get; set; } = string.Empty;
     }
 

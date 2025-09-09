@@ -127,9 +127,9 @@
             return new HatSize(letter, circumference);
         }
 
-        public static DressSize CreateDressSize(string letter, float bust, float waist, float hip)
+        public static DressSize CreateDressSize(string letter, float bust, float waist, float hip, float length)
         {
-            return new DressSize(letter, bust, waist, hip);
+            return new DressSize(letter, bust, waist, hip, length);
         }
     }
     // TODO: Add more specific size classes for Accessories, Perfumes, Dresses.
