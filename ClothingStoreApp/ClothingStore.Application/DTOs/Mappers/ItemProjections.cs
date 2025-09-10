@@ -62,7 +62,6 @@ namespace ClothingStore.Application.DTOs.Mappers
                 {
                     TagId = t.TagId,
                     Name = t.Name,
-                    Ordinal = t.Ordinal
                 }).ToList()
             };
     }
