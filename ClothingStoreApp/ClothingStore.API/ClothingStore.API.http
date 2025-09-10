@@ -1,6 +1,6 @@
 @ClothingStore.API_HostAddress = http://localhost:5071
 
-GET {{ClothingStore.API_HostAddress}}/weatherforecast/
+GET {{ClothingStore.API_HostAddress}}/items/
 Accept: application/json
 
 ###

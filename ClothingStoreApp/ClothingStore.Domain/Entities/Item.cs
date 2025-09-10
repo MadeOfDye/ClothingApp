@@ -5,7 +5,6 @@
 
     public class Item : IAggregateRoot
     {
-        //TODO: Change the Guid property to be string for domain entities.
         public Guid ItemId { get; private set; }
         public string Name { get; private set; }
         public string? Description { get; private set; }
