@@ -1,3 +1,4 @@
+using ClothingStore.API.APIExtentions;
 using ClothingStore.Application.DependencyInjection;
 using ClothingStore.Persistence.DependencyInjection;
 
@@ -13,6 +14,21 @@ builder.Services.AddSwaggerGen();
 Console.WriteLine($"Environment: {builder.Environment.EnvironmentName}");
 var app = builder.Build();
 
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//    try
+//    {
+//        await context.Database.MigrateAsync();
+//        await ApplicationDbContextSeed.SeedAsync(context);
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine($"Database seeding failed: {ex.Message}");
+//        throw; // optional: rethrow or ignore
+//    }
+//}
+await app.SeedDatabaseAsync();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
