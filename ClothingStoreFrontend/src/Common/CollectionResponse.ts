@@ -1,4 +1,4 @@
 export interface CollectionResponse<T> {
-    items: T[];
-    totalCount: number;
+    records: T[];
+    totalNumberOfRecords: number;
 }

@@ -3,11 +3,11 @@ import type { PhotoDto } from "./PhotoDto";
 import type { AvailableLocationBySizeDto } from "./AvailableLocationBySizeDto";
 
 export interface VariantDto{
-    VariantId: string;
-    ItemId: string;
-    Color: ColorDto;
-    TotalQuantity: number;
+    variantId: string;
+    itemId: string;
+    color: ColorDto;
+    totalQuantity: number;
 
-    AvailableLocations: AvailableLocationBySizeDto[];
-    Photos: PhotoDto[];
+    availableLocations: AvailableLocationBySizeDto[];
+    gallery: PhotoDto[];
 }

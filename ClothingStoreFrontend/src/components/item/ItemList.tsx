@@ -5,11 +5,10 @@ export function ItemList() {
 
     if (isPending) return <div>Loading...</div>;
     if (isError) return <div>Error loading items.</div>;
-
     return (
         <ul>
-            {items?.map(item => (
-                <li key={item.ItemId}>{item.Name}</li>
+            {items?.records.map(item => (
+                <li key={item.itemId}>{item.name} - {item.price}</li>
             ))}
         </ul>
     );

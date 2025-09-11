@@ -12,7 +12,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 Console.WriteLine($"Environment: {builder.Environment.EnvironmentName}");
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        b => b.WithOrigins("http://localhost:5173") // frontend URL
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
 var app = builder.Build();
+app.UseCors("AllowFrontend");
 
 //using (var scope = app.Services.CreateScope())
 //{

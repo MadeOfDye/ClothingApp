@@ -1,7 +1,7 @@
 export interface PhotoDto {
-  PhotoId: string;
-  VariantId: string;
-  Url: string;
-  Description: string;
-  UploadedAt: Date;
+  photoId: string;
+  variantId: string;
+  url: string;
+  description: string;
+  uploadedAt: string;
 }

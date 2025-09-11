@@ -1,38 +1,38 @@
 export interface SizeDto{
-    SizeId: string;
+    sizeId: string;
     letter: string;
 }
 
 export interface ShirtSizeDto extends SizeDto{
     length: number;
-    ShoulderWidth: number;
-    ChestWidth: number;
-    SleeveLength: number;
-    SleeveCircumference: number;
-    NeckCircumference: number;
+    shoulderWidth: number;
+    chestWidth: number;
+    sleeveLength: number;
+    sleeveCircumference: number;
+    neckCircumference: number;
 }
 
 export interface PantsSizeDto extends SizeDto{
-    Waist: number;
-    Inseam: number;
-    PantLegCircumference: number;
+    waist: number;
+    inseam: number;
+    pantLegCircumference: number;
 }
 
 export interface ShoeSizeDto extends SizeDto{
-    Length: number;
-    Width: number;
-    HeelHight?: number;
+    length: number;
+    eidth: number;
+    heelHight?: number;
 }
 
 export interface HatSizeDto extends SizeDto{
-    Circumference: number;
+    circumference: number;
 }
 
 export interface DressSizeDto extends SizeDto{
-    Bust: number;
-    Waist: number;
-    Hip: number;
-    Length: number;
+    bust: number;
+    waist: number;
+    hip: number;
+    length: number;
 }
 
 export type AnySizeDto = ShirtSizeDto | PantsSizeDto | ShoeSizeDto | HatSizeDto | DressSizeDto;

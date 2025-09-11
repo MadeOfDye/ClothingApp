@@ -1,5 +1,5 @@
 export interface TagDto{
-    TagId: string;
-    ItemId: string;
-    Name: string;
+    tagId: string;
+    itemId: string;
+    name: string;
 }
