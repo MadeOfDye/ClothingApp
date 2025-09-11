@@ -1,5 +1,5 @@
 export interface LocationDto{
-    Latitude: number;
-    Longitude: number;
-    Address: string;
+    latitude: number;
+    longitude: number;
+    address: string;
 }

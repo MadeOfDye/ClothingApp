@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { ItemApi } from '../../../api/ItemApi';
 import type { ItemDto } from '../../../types/ItemDto';
+import type { CollectionResponse } from '../../../Common/CollectionResponse';
 
 export function useItems() {
-    return useQuery<ItemDto[]>(
+    return useQuery<CollectionResponse<ItemDto>>(
         {
             queryKey: ['items'],
             queryFn: ItemApi.getAllItems,

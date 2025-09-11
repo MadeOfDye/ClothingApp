@@ -2,19 +2,19 @@ import type { VariantDto } from "./VariantDto";
 import type { TagDto } from "./TagDto";
 
 export interface ItemDto {
-  ItemId: string;
-  Description: string;
-  Name: string;
-  Hot: boolean;
-  Price: number;
-  Discount: number;
-  LastChance: boolean;
-  Brand: string;
-  Collection: string;
-  CareGuide: string;
-  MaterialDistrubtion: string;
-  TotalStock: number;
-  CreatedAt: Date;
+  itemId: string;
+  description: string;
+  name: string;
+  hot: boolean;
+  price: number;
+  discount: number;
+  lastChance: boolean;
+  brand: string;
+  collection: string;
+  careGuide: string;
+  materialDistribution: string;
+  totalStock: number;
+  createdAt: string;
 
   variants: VariantDto[];
   tags: TagDto[]
