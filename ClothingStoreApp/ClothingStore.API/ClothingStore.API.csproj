@@ -19,5 +19,10 @@
     <ProjectReference Include="..\ClothingStore.Shared\ClothingStore.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwroot\ProductPhotos\BasicShirt\Variant#FF0000\" />
+    <Folder Include="wwroot\ProductPhotos\SlimFitJeans\Variant#0000FF\" />
+  </ItemGroup>
+
 
 </Project>

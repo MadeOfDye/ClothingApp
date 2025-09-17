@@ -1,5 +1,6 @@
 ﻿using ClothingStore.Domain.Entities;
 using ClothingStore.Domain.ValueObjects;
+using ClothingStore.Shared.Constants;
 
 namespace ClothingStore.Persistence.Seed
 {
@@ -21,8 +22,8 @@ namespace ClothingStore.Persistence.Seed
             tshirt.SetHot(true);
 
             var tshirtVariant = new Variant(Color.FromHex("#FF0000"));
-            tshirtVariant.AddPhoto(new Photo("https://example.com/tshirt-red-front.jpg", "Front view"));
-            tshirtVariant.AddPhoto(new Photo("https://example.com/tshirt-red-back.jpg", "Back view"));
+            tshirtVariant.AddPhoto(new Photo(Shared.Constants.Domain.LOCAL_DOMAIN + "ProductPhotos/BasicShirt/Variant#FF0000/Variant#FF0000-1.jpg", "Front view"));
+            tshirtVariant.AddPhoto(new Photo(Shared.Constants.Domain.LOCAL_DOMAIN + "ProductPhotos/BasicShirt/Variant#FF0000/Variant#FF0000-2.jpg", "Back view"));
 
             // Sizes
             var sizeM = SizeFactory.CreateShirtSize("M", 70, 45, 50, 20);
@@ -56,7 +57,7 @@ namespace ClothingStore.Persistence.Seed
             jeans.SetMaterialDistribution("Cotton: 80%, Elastane: 20%");
 
             var jeansVariant = new Variant(Color.FromHex("#0000FF"));
-            jeansVariant.AddPhoto(new Photo("https://example.com/jeans-blue-front.jpg", "Front view"));
+            jeansVariant.AddPhoto(new Photo(Shared.Constants.Domain.LOCAL_DOMAIN + "ProductPhotos/BasicShirt/Variant#FF0000/Variant#FF0000-1.jpg", "Front view"));
 
             var pantSize32 = SizeFactory.CreatePantSize("32", 80, 80);
             var pantSize34 = SizeFactory.CreatePantSize("34", 85, 82);
