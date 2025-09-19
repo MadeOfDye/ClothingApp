@@ -17,6 +17,7 @@ namespace ClothingStore.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllItems([FromQuery] GetAllItemsQuery query)
         {
+            Console.WriteLine(query);
             return Ok(await _mediator.Send(query));
         }
 

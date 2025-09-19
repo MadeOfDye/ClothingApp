@@ -10,7 +10,7 @@ namespace ClothingStore.API.APIExtentions
         {
             using var scope = app.Services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            await context.Database.MigrateAsync();
+            // await context.Database.MigrateAsync();
             await ApplicationDbContextSeed.SeedAsync(context);
         }
     }
