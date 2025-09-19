@@ -1,6 +1,7 @@
 using ClothingStore.API.APIExtentions;
 using ClothingStore.Application.DependencyInjection;
 using ClothingStore.Persistence.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,9 +31,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles();
-app.UseHttpsRedirection();
 
+app.UseHttpsRedirection();
+app.UseStaticFiles(); // Serves pre-built wwwroot files
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductPhotos")),
+    RequestPath = "/ProductPhotos"
+});
 app.UseAuthorization();
 
 app.MapControllers();
