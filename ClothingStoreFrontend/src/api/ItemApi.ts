@@ -1,5 +1,4 @@
 import type { CollectionResponse } from "../Common/CollectionResponse";
-import { mapItemCollectionResponse } from "../mappers/itemMappers";
 import type { ItemDto } from "../types/ItemDto";
 import { HttpClient } from "./HttpClient";
 
