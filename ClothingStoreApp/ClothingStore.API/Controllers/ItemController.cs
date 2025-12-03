@@ -32,5 +32,8 @@ namespace ClothingStore.API.Controllers
             }
             return Ok(item);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> CreateItem()
     }
 }
